@@ -9,11 +9,11 @@ import org.obywatel.guitartext.start.ExpendableListEntry;
 
 public interface FileCategoryPresenter
 {
-	ExpendableListEntry getGroupEntry(int groupPosition);
+	ExpendableListEntry getCategoryEntry(int groupPosition);
 
-	ExpendableListEntry getChildEntry(int groupPosition, int childPosition);
+	ExpendableListEntry getSubCategoryEntry(int groupPosition, int childPosition);
 
-	int getGroupCount();
+	int getCategoryCount();
 
-	int getChildrenCount(int groupPosition);
+	int getSubCategoryCount(int groupPosition);
 }

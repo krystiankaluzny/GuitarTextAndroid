@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity
 
 		if(fileCategoryPresenter == null)
 		{
-			fileCategoryPresenter = new FileCategoryPresenterImpl();
+			fileCategoryPresenter = new FileCategoryPresenterImpl(getApplicationContext());
 		}
 
 		ExpendableListAdapter expendableListAdapter = new ExpendableListAdapter(getApplicationContext(), fileCategoryPresenter);

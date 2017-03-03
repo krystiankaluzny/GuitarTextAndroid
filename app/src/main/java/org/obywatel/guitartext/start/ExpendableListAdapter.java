@@ -40,25 +40,25 @@ public class ExpendableListAdapter extends BaseExpandableListAdapter
 	@Override
 	public int getGroupCount()
 	{
-		return fileCategoryPresenter.getGroupCount();
+		return fileCategoryPresenter.getCategoryCount();
 	}
 
 	@Override
 	public int getChildrenCount(int groupPosition)
 	{
-		return fileCategoryPresenter.getChildrenCount(groupPosition);
+		return fileCategoryPresenter.getSubCategoryCount(groupPosition);
 	}
 
 	@Override
 	public Object getGroup(int groupPosition)
 	{
-		return fileCategoryPresenter.getChildrenCount(groupPosition);
+		return fileCategoryPresenter.getSubCategoryCount(groupPosition);
 	}
 
 	@Override
 	public Object getChild(int groupPosition, int childPosition)
 	{
-		return fileCategoryPresenter.getChildEntry(groupPosition, childPosition);
+		return fileCategoryPresenter.getSubCategoryEntry(groupPosition, childPosition);
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class ExpendableListAdapter extends BaseExpandableListAdapter
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent)
 	{
-		ExpendableListEntry groupEntry = fileCategoryPresenter.getGroupEntry(groupPosition);
+		ExpendableListEntry groupEntry = fileCategoryPresenter.getCategoryEntry(groupPosition);
 
 		if(groupEntry == null) return convertView;
 
@@ -105,7 +105,7 @@ public class ExpendableListAdapter extends BaseExpandableListAdapter
 		}
 
 		groupViewHolder.textView.setText(groupEntry.getName());
-		groupViewHolder.imageView.setImageResource(groupEntry.iconResourceId);
+		groupViewHolder.imageView.setImageResource(groupEntry.getIconResourceId());
 
 		return convertView;
 	}
@@ -113,7 +113,7 @@ public class ExpendableListAdapter extends BaseExpandableListAdapter
 	@Override
 	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent)
 	{
-		ExpendableListEntry childEntry = fileCategoryPresenter.getChildEntry(groupPosition, childPosition);
+		ExpendableListEntry childEntry = fileCategoryPresenter.getSubCategoryEntry(groupPosition, childPosition);
 
 		if(childEntry == null) return convertView;
 
@@ -136,7 +136,7 @@ public class ExpendableListAdapter extends BaseExpandableListAdapter
 
 
 		childViewHolder.textView.setText(childEntry.getName());
-		childViewHolder.imageView.setImageResource(childEntry.iconResourceId);
+		childViewHolder.imageView.setImageResource(childEntry.getIconResourceId());
 
 		return convertView;
 	}

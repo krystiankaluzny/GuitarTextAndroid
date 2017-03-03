@@ -1,5 +1,8 @@
 package org.obywatel.guitartext.presenters.fileCategory.impl;
 
+import android.content.Context;
+
+import org.obywatel.guitartext.R;
 import org.obywatel.guitartext.presenters.fileCategory.FileCategoryEntry;
 import org.obywatel.guitartext.presenters.fileCategory.FileCategoryPresenter;
 import org.obywatel.guitartext.presenters.fileCategory.SubFileCategoryEntry;
@@ -15,60 +18,73 @@ import java.util.List;
 
 public class FileCategoryPresenterImpl implements FileCategoryPresenter
 {
+	private final Context context;
 	private List<FileCategoryEntry> fileCategoryEntryList;
 
-	public FileCategoryPresenterImpl()
+	public FileCategoryPresenterImpl(Context ctx)
 	{
+		this.context = ctx.getApplicationContext();
 		fileCategoryEntryList = new ArrayList<>();
 
-		fileCategoryEntryList.add(
-				new FileCategoryEntry("Test")
-						.addFileEntry(new SubFileCategoryEntry("test1"))
-						.addFileEntry(new SubFileCategoryEntry("test2"))
-						.addFileEntry(new SubFileCategoryEntry("test3"))
-						.addFileEntry(new SubFileCategoryEntry("test4")));
+		FileCategoryEntry baseCategory = new FileCategoryEntry(context.getResources().getString(R.string.category_base));
+		FileCategoryEntry favouriteCategory = new FileCategoryEntry(context.getResources().getString(R.string.category_favourite));
+		FileCategoryEntry recentCategory = new FileCategoryEntry(context.getResources().getString(R.string.category_recent));
 
-		fileCategoryEntryList.add(
-				new FileCategoryEntry("Aud")
-						.addFileEntry(new SubFileCategoryEntry("Aud1"))
-						.addFileEntry(new SubFileCategoryEntry("Aud2")));
+		baseCategory
+				.addFileEntry(new SubFileCategoryEntry("test1"))
+				.addFileEntry(new SubFileCategoryEntry("test2"))
+				.addFileEntry(new SubFileCategoryEntry("test3"))
+				.addFileEntry(new SubFileCategoryEntry("test4"))
+				.addFileEntry(new SubFileCategoryEntry("test4"))
+				.addFileEntry(new SubFileCategoryEntry("test4"));
 
-		fileCategoryEntryList.add(
-				new FileCategoryEntry("Akars")
-						.addFileEntry(new SubFileCategoryEntry("Akars1"))
-						.addFileEntry(new SubFileCategoryEntry("Akars2"))
-						.addFileEntry(new SubFileCategoryEntry("Akars3")));
+		favouriteCategory
+				.addFileEntry(new SubFileCategoryEntry("Aud1"))
+				.addFileEntry(new SubFileCategoryEntry("Aud2"))
+				.addFileEntry(new SubFileCategoryEntry("Aud2"))
+				.addFileEntry(new SubFileCategoryEntry("Aud2"));
+
+		recentCategory
+				.addFileEntry(new SubFileCategoryEntry("Akars1"))
+				.addFileEntry(new SubFileCategoryEntry("Akars2"))
+				.addFileEntry(new SubFileCategoryEntry("Akars2"))
+				.addFileEntry(new SubFileCategoryEntry("Akars2"))
+				.addFileEntry(new SubFileCategoryEntry("Akars3"));
+
+		fileCategoryEntryList.add(baseCategory);
+		fileCategoryEntryList.add(favouriteCategory);
+		fileCategoryEntryList.add(recentCategory);
 	}
 
 	@Override
-	public ExpendableListEntry getGroupEntry(int groupPosition)
+	public ExpendableListEntry getCategoryEntry(int categoryPosition)
 	{
-		if(groupPosition < 0 || groupPosition >= fileCategoryEntryList.size()) return null;
-		return fileCategoryEntryList.get(groupPosition);
+		if(categoryPosition < 0 || categoryPosition >= fileCategoryEntryList.size()) return null;
+		return fileCategoryEntryList.get(categoryPosition);
 	}
 
 	@Override
-	public ExpendableListEntry getChildEntry(int groupPosition, int childPosition)
+	public ExpendableListEntry getSubCategoryEntry(int categoryPosition, int subCategoryPosition)
 	{
-		if(groupPosition < 0 || groupPosition >= fileCategoryEntryList.size()) return null;
+		if(categoryPosition < 0 || categoryPosition >= fileCategoryEntryList.size()) return null;
 
-		List<SubFileCategoryEntry> subCategories = fileCategoryEntryList.get(groupPosition).getSubFileCategoryEntryList();
+		List<SubFileCategoryEntry> subCategories = fileCategoryEntryList.get(categoryPosition).getSubFileCategoryEntryList();
 
-		if(childPosition < 0 || childPosition >= subCategories.size()) return null;
+		if(subCategoryPosition < 0 || subCategoryPosition >= subCategories.size()) return null;
 
-		return subCategories.get(childPosition);
+		return subCategories.get(subCategoryPosition);
 	}
 
 	@Override
-	public int getGroupCount()
+	public int getCategoryCount()
 	{
 		return fileCategoryEntryList.size();
 	}
 
 	@Override
-	public int getChildrenCount(int groupPosition)
+	public int getSubCategoryCount(int categoryPosition)
 	{
-		if(groupPosition < 0 || groupPosition >= fileCategoryEntryList.size()) return 0;
-		return fileCategoryEntryList.get(groupPosition).getSubFileCategoryEntryList().size();
+		if(categoryPosition < 0 || categoryPosition >= fileCategoryEntryList.size()) return 0;
+		return fileCategoryEntryList.get(categoryPosition).getSubFileCategoryEntryList().size();
 	}
 }

@@ -91,4 +91,7 @@
 	</string>
 	<string name="action_settings">Settings</string>
 	<string name="title_activity_main">MainActivity</string>
+	<string name="category_base">Base</string>
+	<string name="category_favourite">Favourite</string>
+	<string name="category_recent">Recent</string>
 </resources>
