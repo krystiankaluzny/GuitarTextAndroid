@@ -9,12 +9,12 @@ import android.view.View;
 import android.widget.ExpandableListView;
 
 import org.obywatel.guitartext.R;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.obywatel.guitartext.presenters.fileCategory.FileCategoryPresenter;
+import org.obywatel.guitartext.presenters.fileCategory.impl.FileCategoryPresenterImpl;
 
 public class MainActivity extends AppCompatActivity
 {
+	private static FileCategoryPresenter fileCategoryPresenter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -36,24 +36,12 @@ public class MainActivity extends AppCompatActivity
 		});
 
 
-		List<Category> categoryList = new ArrayList<>();
+		if(fileCategoryPresenter == null)
+		{
+			fileCategoryPresenter = new FileCategoryPresenterImpl();
+		}
 
-		categoryList.add(new Category("Test")
-				.addSubCategory(new SubCategory("test1"))
-				.addSubCategory(new SubCategory("test2"))
-				.addSubCategory(new SubCategory("test3"))
-				.addSubCategory(new SubCategory("test4")));
-
-		categoryList.add(new Category("Aud")
-				.addSubCategory(new SubCategory("Aud1"))
-				.addSubCategory(new SubCategory("Aud2")));
-
-		categoryList.add(new Category("Akars")
-				.addSubCategory(new SubCategory("Akars1"))
-				.addSubCategory(new SubCategory("Akars2"))
-				.addSubCategory(new SubCategory("Akars3")));
-
-		ExpendableListAdapter expendableListAdapter = new ExpendableListAdapter(getApplicationContext(), categoryList);
+		ExpendableListAdapter expendableListAdapter = new ExpendableListAdapter(getApplicationContext(), fileCategoryPresenter);
 
 		ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expendable_list_view);
 		expandableListView.setAdapter(expendableListAdapter);

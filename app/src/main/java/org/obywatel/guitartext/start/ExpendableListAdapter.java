@@ -5,11 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.obywatel.guitartext.R;
-
-import java.util.List;
+import org.obywatel.guitartext.presenters.fileCategory.FileCategoryPresenter;
 
 /**
  * Created by obywatel on 03.03.2017.
@@ -19,44 +19,46 @@ import java.util.List;
 public class ExpendableListAdapter extends BaseExpandableListAdapter
 {
 	private final Context context;
-	private List<Category> categoryList;
+	private final FileCategoryPresenter fileCategoryPresenter;
 
-	public ExpendableListAdapter(Context context, List<Category> categoryList)
+	class GroupViewHolder
+	{
+		TextView textView;
+		ImageView imageView;
+	}
+
+	class ChildViewHolder extends GroupViewHolder
+	{
+	}
+
+	public ExpendableListAdapter(Context context, FileCategoryPresenter fileCategoryPresenter)
 	{
 		this.context = context;
-		this.categoryList = categoryList;
+		this.fileCategoryPresenter = fileCategoryPresenter;
 	}
 
 	@Override
 	public int getGroupCount()
 	{
-		return categoryList.size();
+		return fileCategoryPresenter.getGroupCount();
 	}
 
 	@Override
 	public int getChildrenCount(int groupPosition)
 	{
-		if(groupPosition < 0 || groupPosition >= categoryList.size()) return 0;
-		return categoryList.get(groupPosition).getSubCategoryList().size();
+		return fileCategoryPresenter.getChildrenCount(groupPosition);
 	}
 
 	@Override
 	public Object getGroup(int groupPosition)
 	{
-		if(groupPosition < 0 || groupPosition >= categoryList.size()) return null;
-		return categoryList.get(groupPosition);
+		return fileCategoryPresenter.getChildrenCount(groupPosition);
 	}
 
 	@Override
 	public Object getChild(int groupPosition, int childPosition)
 	{
-		if(groupPosition < 0 || groupPosition >= categoryList.size()) return null;
-
-		List<SubCategory> subCategories = categoryList.get(groupPosition).getSubCategoryList();
-
-		if(childPosition < 0 || childPosition >= subCategories.size()) return null;
-
-		return subCategories.get(childPosition);
+		return fileCategoryPresenter.getChildEntry(groupPosition, childPosition);
 	}
 
 	@Override
@@ -80,32 +82,63 @@ public class ExpendableListAdapter extends BaseExpandableListAdapter
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent)
 	{
-		if(groupPosition < 0 || groupPosition >= categoryList.size()) return convertView;
+		ExpendableListEntry groupEntry = fileCategoryPresenter.getGroupEntry(groupPosition);
 
-		LayoutInflater inflater = LayoutInflater.from(context);
-		View rowView = inflater.inflate(R.layout.row_category, parent, false);
+		if(groupEntry == null) return convertView;
 
-		TextView textView = (TextView) rowView.findViewById(R.id.textView);
-		textView.setText(categoryList.get(groupPosition).getName());
+		GroupViewHolder groupViewHolder;
 
-		return rowView;
+		if(convertView == null)
+		{
+			LayoutInflater inflater = LayoutInflater.from(context);
+			convertView = inflater.inflate(R.layout.row_group_entry, parent, false);
+
+			groupViewHolder = new GroupViewHolder();
+			groupViewHolder.textView = (TextView) convertView.findViewById(R.id.textView);
+			groupViewHolder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
+
+			convertView.setTag(groupViewHolder);
+		}
+		else
+		{
+			groupViewHolder = (GroupViewHolder) convertView.getTag();
+		}
+
+		groupViewHolder.textView.setText(groupEntry.getName());
+		groupViewHolder.imageView.setImageResource(groupEntry.iconResourceId);
+
+		return convertView;
 	}
 
 	@Override
 	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent)
 	{
-		if(groupPosition < 0 || groupPosition >= categoryList.size()) return convertView;
+		ExpendableListEntry childEntry = fileCategoryPresenter.getChildEntry(groupPosition, childPosition);
 
-		List<SubCategory> subCategories = categoryList.get(groupPosition).getSubCategoryList();
-		if(childPosition < 0 || childPosition >= subCategories.size()) return convertView;
+		if(childEntry == null) return convertView;
 
-		LayoutInflater inflater = LayoutInflater.from(context);
-		View rowView = inflater.inflate(R.layout.row_subcategory, parent, false);
+		ChildViewHolder childViewHolder;
+		if(convertView == null)
+		{
+			LayoutInflater inflater = LayoutInflater.from(context);
+			convertView = inflater.inflate(R.layout.row_child_entry, parent, false);
 
-		TextView textView = (TextView) rowView.findViewById(R.id.textView);
-		textView.setText(subCategories.get(groupPosition).getName());
+			childViewHolder = new ChildViewHolder();
+			childViewHolder.textView = (TextView) convertView.findViewById(R.id.textView);
+			childViewHolder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
 
-		return rowView;
+			convertView.setTag(childViewHolder);
+		}
+		else
+		{
+			childViewHolder = (ChildViewHolder) convertView.getTag();
+		}
+
+
+		childViewHolder.textView.setText(childEntry.getName());
+		childViewHolder.imageView.setImageResource(childEntry.iconResourceId);
+
+		return convertView;
 	}
 
 	@Override
