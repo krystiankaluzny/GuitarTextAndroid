@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import app.guitartext.R;
 import app.guitartext.presenters.fileCategory.FileCategoryPresenter;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by obywatel on 03.03.2017.
@@ -21,14 +23,23 @@ public class ExpendableListAdapter extends BaseExpandableListAdapter
 	private final Context context;
 	private final FileCategoryPresenter fileCategoryPresenter;
 
-	class GroupViewHolder
+	static class GroupViewHolder
 	{
-		TextView textView;
-		ImageView imageView;
+		@BindView(R.id.textView) TextView textView;
+		@BindView(R.id.imageView) ImageView imageView;
+
+		GroupViewHolder(View view)
+		{
+			ButterKnife.bind(this, view);
+		}
 	}
 
-	class ChildViewHolder extends GroupViewHolder
+	static class ChildViewHolder extends GroupViewHolder
 	{
+		ChildViewHolder(View view)
+		{
+			super(view);
+		}
 	}
 
 	public ExpendableListAdapter(Context context, FileCategoryPresenter fileCategoryPresenter)
@@ -92,11 +103,7 @@ public class ExpendableListAdapter extends BaseExpandableListAdapter
 		{
 			LayoutInflater inflater = LayoutInflater.from(context);
 			convertView = inflater.inflate(R.layout.row_group_entry, parent, false);
-
-			groupViewHolder = new GroupViewHolder();
-			groupViewHolder.textView = (TextView) convertView.findViewById(R.id.textView);
-			groupViewHolder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
-
+			groupViewHolder = new GroupViewHolder(convertView);
 			convertView.setTag(groupViewHolder);
 		}
 		else
@@ -123,10 +130,7 @@ public class ExpendableListAdapter extends BaseExpandableListAdapter
 			LayoutInflater inflater = LayoutInflater.from(context);
 			convertView = inflater.inflate(R.layout.row_child_entry, parent, false);
 
-			childViewHolder = new ChildViewHolder();
-			childViewHolder.textView = (TextView) convertView.findViewById(R.id.textView);
-			childViewHolder.imageView = (ImageView) convertView.findViewById(R.id.imageView);
-
+			childViewHolder = new ChildViewHolder(convertView);
 			convertView.setTag(childViewHolder);
 		}
 		else
