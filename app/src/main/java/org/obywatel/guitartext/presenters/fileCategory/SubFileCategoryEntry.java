@@ -11,6 +11,11 @@ public class SubFileCategoryEntry extends ExpendableListEntry
 {
 	public SubFileCategoryEntry(String name)
 	{
-		super(name,  android.R.drawable.btn_radio);
+		super(name, android.R.drawable.btn_radio);
+	}
+
+	public SubFileCategoryEntry(String name, int iconResourceId)
+	{
+		super(name, iconResourceId);
 	}
 }

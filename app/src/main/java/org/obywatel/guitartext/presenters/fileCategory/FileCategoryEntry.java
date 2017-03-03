@@ -19,6 +19,11 @@ public class FileCategoryEntry extends ExpendableListEntry
 		super(name, android.R.drawable.btn_dialog);
 	}
 
+	public FileCategoryEntry(String name, int iconResourceId)
+	{
+		super(name, iconResourceId);
+	}
+
 	public FileCategoryEntry addFileEntry(SubFileCategoryEntry subFileCategoryEntry)
 	{
 		subFileCategoryEntryList.add(subFileCategoryEntry);

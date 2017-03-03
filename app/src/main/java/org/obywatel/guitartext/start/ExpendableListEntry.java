@@ -21,18 +21,8 @@ public class ExpendableListEntry
 		return name;
 	}
 
-	public void setName(String name)
-	{
-		this.name = name;
-	}
-
 	public int getIconResourceId()
 	{
 		return iconResourceId;
-	}
-
-	public void setIconResourceId(int iconResourceId)
-	{
-		this.iconResourceId = iconResourceId;
 	}
 }
