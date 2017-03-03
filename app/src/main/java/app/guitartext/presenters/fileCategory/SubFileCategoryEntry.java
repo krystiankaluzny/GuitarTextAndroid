@@ -1,6 +1,6 @@
-package org.obywatel.guitartext.presenters.fileCategory;
+package app.guitartext.presenters.fileCategory;
 
-import org.obywatel.guitartext.start.ExpendableListEntry;
+import app.guitartext.start.ExpendableListEntry;
 
 /**
  * Created by obywatel on 03.03.2017.

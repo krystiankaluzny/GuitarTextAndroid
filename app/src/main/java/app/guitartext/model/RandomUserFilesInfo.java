@@ -1,6 +1,6 @@
-package org.obywatel.guitartext.model;
+package app.guitartext.model;
 
-import org.obywatel.guitartext.util.RandomString;
+import app.guitartext.util.RandomString;
 
 import java.util.ArrayList;
 import java.util.List;

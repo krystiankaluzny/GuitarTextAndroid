@@ -1,4 +1,4 @@
-package org.obywatel.guitartext;
+package app.guitartext;
 
 import org.junit.Test;
 

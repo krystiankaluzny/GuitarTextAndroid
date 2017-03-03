@@ -1,4 +1,4 @@
-package org.obywatel.guitartext.model;
+package app.guitartext.model;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.obywatel.guitartext;
+package app.guitartext;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

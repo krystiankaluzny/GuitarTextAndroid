@@ -1,4 +1,4 @@
-package org.obywatel.guitartext;
+package app.guitartext;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -23,6 +23,6 @@ public class ExampleInstrumentedTest
 		// Context of the app under test.
 		Context appContext = InstrumentationRegistry.getTargetContext();
 
-		assertEquals("org.obywatel.guitartext", appContext.getPackageName());
+		assertEquals("guitartext", appContext.getPackageName());
 	}
 }

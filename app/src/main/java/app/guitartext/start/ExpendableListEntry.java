@@ -1,4 +1,4 @@
-package org.obywatel.guitartext.start;
+package app.guitartext.start;
 
 /**
  * Created by obywatel on 03.03.2017.

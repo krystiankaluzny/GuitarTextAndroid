@@ -1,4 +1,4 @@
-package org.obywatel.guitartext.util;
+package app.guitartext.util;
 
 import java.util.Random;
 

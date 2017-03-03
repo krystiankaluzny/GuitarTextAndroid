@@ -1,4 +1,4 @@
-package org.obywatel.guitartext.start;
+package app.guitartext.start;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,8 +8,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.obywatel.guitartext.R;
-import org.obywatel.guitartext.presenters.fileCategory.FileCategoryPresenter;
+import app.guitartext.R;
+import app.guitartext.presenters.fileCategory.FileCategoryPresenter;
 
 /**
  * Created by obywatel on 03.03.2017.

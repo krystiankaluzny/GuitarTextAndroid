@@ -1,4 +1,4 @@
-package org.obywatel.guitartext.start;
+package app.guitartext.start;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,9 +8,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ExpandableListView;
 
-import org.obywatel.guitartext.R;
-import org.obywatel.guitartext.presenters.fileCategory.FileCategoryPresenter;
-import org.obywatel.guitartext.presenters.fileCategory.impl.FileCategoryPresenterImpl;
+import app.guitartext.R;
+import app.guitartext.presenters.fileCategory.FileCategoryPresenter;
+import app.guitartext.presenters.fileCategory.impl.FileCategoryPresenterImpl;
 
 public class MainActivity extends AppCompatActivity
 {

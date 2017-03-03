@@ -1,4 +1,4 @@
-package org.obywatel.guitartext.model;
+package app.guitartext.model;
 
 /**
  * Created by obywatel on 03.03.2017.

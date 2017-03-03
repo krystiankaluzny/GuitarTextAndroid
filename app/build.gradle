@@ -4,7 +4,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
-        applicationId "org.obywatel.guitartext"
+        applicationId "app.guitartext"
         minSdkVersion 19
         targetSdkVersion 25
         versionCode 1

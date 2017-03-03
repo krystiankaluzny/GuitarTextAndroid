@@ -1,15 +1,15 @@
-package org.obywatel.guitartext.presenters.fileCategory.impl;
+package app.guitartext.presenters.fileCategory.impl;
 
 import android.content.Context;
 
-import org.obywatel.guitartext.R;
-import org.obywatel.guitartext.model.FileInfo;
-import org.obywatel.guitartext.model.RandomUserFilesInfo;
-import org.obywatel.guitartext.model.UserFilesInfo;
-import org.obywatel.guitartext.presenters.fileCategory.FileCategoryEntry;
-import org.obywatel.guitartext.presenters.fileCategory.FileCategoryPresenter;
-import org.obywatel.guitartext.presenters.fileCategory.SubFileCategoryEntry;
-import org.obywatel.guitartext.start.ExpendableListEntry;
+import app.guitartext.R;
+import app.guitartext.model.FileInfo;
+import app.guitartext.model.RandomUserFilesInfo;
+import app.guitartext.model.UserFilesInfo;
+import app.guitartext.presenters.fileCategory.FileCategoryEntry;
+import app.guitartext.presenters.fileCategory.FileCategoryPresenter;
+import app.guitartext.presenters.fileCategory.SubFileCategoryEntry;
+import app.guitartext.start.ExpendableListEntry;
 
 import java.util.ArrayList;
 import java.util.List;

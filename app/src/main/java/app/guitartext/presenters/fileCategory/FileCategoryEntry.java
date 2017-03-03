@@ -1,6 +1,6 @@
-package org.obywatel.guitartext.presenters.fileCategory;
+package app.guitartext.presenters.fileCategory;
 
-import org.obywatel.guitartext.start.ExpendableListEntry;
+import app.guitartext.start.ExpendableListEntry;
 
 import java.util.ArrayList;
 import java.util.List;
