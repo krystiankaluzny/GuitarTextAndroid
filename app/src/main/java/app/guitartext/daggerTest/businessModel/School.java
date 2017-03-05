@@ -13,9 +13,16 @@ public class School
 	@Inject Children children;
 	@Inject Principal principal;
 
+//School cannot be provided without an @Inject constructor or from an @Provides- or @Produces-annotated method. This type supports members injection but cannot be implicitly provided.
+	@Inject
+	public School()
+	{
+	}
+
 	@Override
 	public String toString()
 	{
+
 		return "School" + hashCode() + "{" +
 				"bus=" + bus +
 				", children=" + children +

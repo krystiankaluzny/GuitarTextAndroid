@@ -14,6 +14,12 @@ public abstract class Car
 	@Inject Wheel wheel3;
 	@Inject Wheel wheel4;
 
+	// @Inject is nonsense on the constructor of an abstract class
+//	@Inject
+//	public Car()
+//	{
+//	}
+
 	@Override
 	public String toString()
 	{

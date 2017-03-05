@@ -30,14 +30,7 @@ public class SchoolModule
 	}
 
 	@Provides
-	@Singleton
-	Bus provideBus()
-	{
-		return new Bus();
-	}
-
-	@Provides
-	Children providechildren(MainClass.Context context)
+	Children provideChildren(MainClass.Context context)
 	{
 		return new Children(context);
 	}
@@ -55,21 +48,29 @@ public class SchoolModule
 		return "Janusz";
 	}
 
+	//DO NOT CREATE PROVIDE METHODS FOR OBJECTS WITH EMPTY CONSTRUCTOR CAUSE INNER FIELDS WILL NOT BE INJECTED
+//	@Provides
+//	@Singleton
+//	Bus provideBus()
+//	{
+//		return new Bus();
+//	}
+
 //	@Provides
 //	TicketMachine provideTicketMachine()
 //	{
 //		return new TicketMachine();
 //	}
-
+//
 //	@Provides
 //	Wheel provideWheel()
 //	{
 //		return new Wheel();
 //	}
 
-	@Provides
-	School provideSchool()
-	{
-		return new School();
-	}
+//	@Provides
+//	School provideSchool()
+//	{
+//		return new School();
+//	}
 }
