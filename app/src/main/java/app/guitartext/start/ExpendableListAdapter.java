@@ -8,6 +8,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import javax.inject.Inject;
+
 import app.guitartext.R;
 import app.guitartext.presenters.fileCategory.FileCategoryPresenter;
 import butterknife.BindView;
@@ -42,6 +44,7 @@ public class ExpendableListAdapter extends BaseExpandableListAdapter
 		}
 	}
 
+	@Inject
 	public ExpendableListAdapter(Context context, FileCategoryPresenter fileCategoryPresenter)
 	{
 		this.context = context;
