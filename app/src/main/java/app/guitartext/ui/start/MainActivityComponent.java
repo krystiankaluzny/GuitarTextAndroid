@@ -1,9 +1,7 @@
-package app.guitartext.start;
+package app.guitartext.ui.start;
 
-import app.guitartext.ApplicationComponent;
 import app.guitartext.scopes.ActivityScope;
-import app.guitartext.presenters.fileCategory.FileCategoryModule;
-import dagger.Component;
+import dagger.Subcomponent;
 
 /**
  * Created by obywatel on 05.03.2017.
@@ -11,7 +9,7 @@ import dagger.Component;
  */
 
 @ActivityScope
-@Component(dependencies = ApplicationComponent.class, modules = FileCategoryModule.class)
+@Subcomponent(modules = MainActivityModule.class)
 public interface MainActivityComponent
 {
 	void inject(MainActivity mainActivity);

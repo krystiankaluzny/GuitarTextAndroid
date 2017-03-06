@@ -1,4 +1,4 @@
-package app.guitartext.start;
+package app.guitartext.ui.start;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import javax.inject.Inject;
 
 import app.guitartext.R;
-import app.guitartext.presenters.fileCategory.FileCategoryPresenter;
+import app.guitartext.ui.presenters.fileCategory.FileCategoryPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

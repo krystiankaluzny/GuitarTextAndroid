@@ -1,4 +1,4 @@
-package app.guitartext.model;
+package app.guitartext.user.fileInfo;
 
 import app.guitartext.util.RandomString;
 

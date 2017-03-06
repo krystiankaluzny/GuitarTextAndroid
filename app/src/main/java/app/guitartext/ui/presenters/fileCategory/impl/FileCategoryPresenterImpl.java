@@ -1,15 +1,15 @@
-package app.guitartext.presenters.fileCategory.impl;
+package app.guitartext.ui.presenters.fileCategory.impl;
 
 import android.content.Context;
 
 import app.guitartext.R;
-import app.guitartext.model.FileInfo;
-import app.guitartext.model.RandomUserFilesInfo;
-import app.guitartext.model.UserFilesInfo;
-import app.guitartext.presenters.fileCategory.FileCategoryEntry;
-import app.guitartext.presenters.fileCategory.FileCategoryPresenter;
-import app.guitartext.presenters.fileCategory.SubFileCategoryEntry;
-import app.guitartext.start.ExpendableListEntry;
+import app.guitartext.user.fileInfo.FileInfo;
+import app.guitartext.user.fileInfo.RandomUserFilesInfo;
+import app.guitartext.user.fileInfo.UserFilesInfo;
+import app.guitartext.ui.presenters.fileCategory.FileCategoryEntry;
+import app.guitartext.ui.presenters.fileCategory.FileCategoryPresenter;
+import app.guitartext.ui.presenters.fileCategory.SubFileCategoryEntry;
+import app.guitartext.ui.start.ExpendableListEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +26,10 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 
 	private UserFilesInfo userFilesInfo = new RandomUserFilesInfo();
 
-	public FileCategoryPresenterImpl(Context ctx)
+	public FileCategoryPresenterImpl(Context ctx, UserFilesInfo userFilesInfo)
 	{
-		this.context = ctx.getApplicationContext();
+		this.context = ctx;
+		this.userFilesInfo = userFilesInfo;
 		fileCategoryEntryList = new ArrayList<>();
 
 		addBaseCategory();

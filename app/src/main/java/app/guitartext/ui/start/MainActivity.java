@@ -1,4 +1,4 @@
-package app.guitartext.start;
+package app.guitartext.ui.start;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,7 +11,7 @@ import javax.inject.Inject;
 
 import app.guitartext.GuitarTextApplication;
 import app.guitartext.R;
-import app.guitartext.presenters.fileCategory.FileCategoryPresenter;
+import app.guitartext.ui.presenters.fileCategory.FileCategoryPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity
 
 	private void createComponent()
 	{
-		mainActivityComponent = DaggerMainActivityComponent.builder()
-				.applicationComponent(((GuitarTextApplication)getApplication()).getApplicationComponent())
-				.build();
+		mainActivityComponent = GuitarTextApplication.get(this)
+				.getUserComponent()
+				.plus(new MainActivityModule());
 	}
 }

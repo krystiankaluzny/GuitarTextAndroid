@@ -1,4 +1,4 @@
-package app.guitartext.start;
+package app.guitartext.ui.start;
 
 /**
  * Created by obywatel on 03.03.2017.

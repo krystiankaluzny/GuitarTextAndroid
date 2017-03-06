@@ -1,6 +1,6 @@
-package app.guitartext.presenters.fileCategory;
+package app.guitartext.ui.presenters.fileCategory;
 
-import app.guitartext.start.ExpendableListEntry;
+import app.guitartext.ui.start.ExpendableListEntry;
 
 /**
  * Created by obywatel on 03.03.2017.

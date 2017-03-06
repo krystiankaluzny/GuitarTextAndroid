@@ -11,7 +11,7 @@
 		android:name=".GuitarTextApplication">
 
 		<activity
-			android:name=".start.MainActivity"
+			android:name=".ui.start.MainActivity"
 			android:label="@string/app_name"
 			android:theme="@style/AppTheme.NoActionBar">
 			<intent-filter>
@@ -22,7 +22,7 @@
 		</activity>
 
 		<activity
-			android:name=".TextScrollingActivity"
+			android:name=".ui.TextScrollingActivity"
 			android:label="@string/app_name"
 			android:theme="@style/AppTheme.NoActionBar">
 			<intent-filter>

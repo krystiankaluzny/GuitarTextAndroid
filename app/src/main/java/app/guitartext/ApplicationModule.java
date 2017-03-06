@@ -4,6 +4,7 @@ import android.content.Context;
 
 import javax.inject.Singleton;
 
+import app.guitartext.scopes.ApplicationScope;
 import dagger.Module;
 import dagger.Provides;
 
@@ -23,8 +24,8 @@ public class ApplicationModule
 	}
 
 
+	@ApplicationScope
 	@Provides
-	@Singleton
 	public Context provideApplicationContext()
 	{
 		return context;

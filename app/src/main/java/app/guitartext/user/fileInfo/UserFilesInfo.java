@@ -1,4 +1,4 @@
-package app.guitartext.model;
+package app.guitartext.user.fileInfo;
 
 import java.util.List;
 
