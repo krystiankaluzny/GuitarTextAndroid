@@ -8,10 +8,10 @@ package app.guitartext.user.fileInfo;
 
 public class FileInfo
 {
-	private int id;
-	private boolean directory;
-	private String path;
-	private String name;
+	private final int id;
+	private final boolean directory;
+	private final String path;
+	private final String name;
 
 	public FileInfo(int id, boolean directory, String path, String name)
 	{

@@ -1,4 +1,4 @@
-package app.guitartext.ui.start;
+package app.guitartext.ui.category;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import javax.inject.Inject;
 
 import app.guitartext.R;
-import app.guitartext.ui.presenters.fileCategory.FileCategoryPresenter;
+import app.guitartext.ui.category.presenter.FileCategoryPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -20,13 +20,13 @@ import butterknife.ButterKnife;
  * Modified by
  */
 
-public class ExpendableListAdapter extends BaseExpandableListAdapter
+public class CategoryExpendableListAdapter extends BaseExpandableListAdapter
 {
 	private final Context context;
 	private final FileCategoryPresenter fileCategoryPresenter;
 
 	@Inject
-	public ExpendableListAdapter(Context context, FileCategoryPresenter fileCategoryPresenter)
+	public CategoryExpendableListAdapter(Context context, FileCategoryPresenter fileCategoryPresenter)
 	{
 		this.context = context;
 		this.fileCategoryPresenter = fileCategoryPresenter;

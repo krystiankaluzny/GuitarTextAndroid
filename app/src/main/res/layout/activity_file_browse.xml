@@ -9,14 +9,12 @@
 	android:paddingLeft="@dimen/activity_horizontal_margin"
 	android:paddingRight="@dimen/activity_horizontal_margin"
 	android:paddingTop="@dimen/activity_vertical_margin"
-	tools:context="app.guitartext.ui.browser.FileBrowseActivity">
+	tools:context="app.guitartext.ui.browser.FileBrowserActivity">
 
-	<TextView
-		android:text="TextView"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
+	<ListView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
 		android:layout_alignParentTop="true"
 		android:layout_centerHorizontal="true"
-		android:layout_marginTop="38dp"
-		android:id="@+id/textView2"/>
+		android:id="@+id/file_list"/>
 </RelativeLayout>

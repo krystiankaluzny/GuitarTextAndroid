@@ -1,4 +1,4 @@
-package app.guitartext.ui.start;
+package app.guitartext.ui.category;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,17 +12,20 @@ import javax.inject.Inject;
 
 import app.guitartext.GuitarTextApplication;
 import app.guitartext.R;
-import app.guitartext.ui.presenters.fileCategory.FileCategoryPresenter;
+import app.guitartext.ui.category.component.CategoryActivityComponent;
+import app.guitartext.ui.category.component.CategoryActivityComponent2;
+import app.guitartext.ui.category.component.CategoryActivityModule;
+import app.guitartext.ui.category.presenter.FileCategoryPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements ExpandableListView.OnGroupClickListener, ExpandableListView.OnChildClickListener
+public class CategoryActivity extends AppCompatActivity implements ExpandableListView.OnGroupClickListener, ExpandableListView.OnChildClickListener
 {
 	@BindView(R.id.fab) FloatingActionButton floatingActionButton;
 	@BindView(R.id.toolbar) Toolbar toolbar;
 	@BindView(R.id.expendable_list_view) ExpandableListView expandableListView;
 
-	private MainActivityComponent mainActivityComponent;
+	private CategoryActivityComponent categoryActivityComponent;
 
 	@Inject FileCategoryPresenter fileCategoryPresenter;
 
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements ExpandableListVie
 		ButterKnife.bind(this);
 
 		createComponent();
-		mainActivityComponent.inject(this);
+		categoryActivityComponent.inject(this);
 
 
 		setSupportActionBar(toolbar);
@@ -43,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements ExpandableListVie
 		floatingActionButton.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 				.setAction("Action", null).show());
 
-		expandableListView.setAdapter(mainActivityComponent.expendableListAdapter());
+		expandableListView.setAdapter(categoryActivityComponent.expendableListAdapter());
 
 		expandableListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
 		expandableListView.setOnGroupClickListener(this);
@@ -52,11 +55,11 @@ public class MainActivity extends AppCompatActivity implements ExpandableListVie
 
 	private void createComponent()
 	{
-		mainActivityComponent = GuitarTextApplication.get(this)
+		categoryActivityComponent = GuitarTextApplication.get(this)
 				.getUserComponent()
-				.plus(new MainActivityModule(this));
+				.plus(new CategoryActivityModule(this));
 
-		MainActivityComponent2 mainActivityComponent2;
+		CategoryActivityComponent2 categoryActivityComponent2;
 	}
 
 	@Override

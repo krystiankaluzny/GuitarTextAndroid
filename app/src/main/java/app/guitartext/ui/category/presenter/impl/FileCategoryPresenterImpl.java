@@ -1,4 +1,4 @@
-package app.guitartext.ui.presenters.fileCategory.impl;
+package app.guitartext.ui.category.presenter.impl;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.guitartext.R;
-import app.guitartext.ui.browser.FileBrowseActivity;
-import app.guitartext.ui.presenters.fileCategory.FileCategoryEntry;
-import app.guitartext.ui.presenters.fileCategory.FileCategoryPresenter;
-import app.guitartext.ui.presenters.fileCategory.SubFileCategoryEntry;
-import app.guitartext.ui.start.ExpendableListEntry;
+import app.guitartext.ui.browser.FileBrowserActivity;
+import app.guitartext.ui.category.presenter.FileCategoryEntry;
+import app.guitartext.ui.category.presenter.FileCategoryPresenter;
+import app.guitartext.ui.category.presenter.SubFileCategoryEntry;
+import app.guitartext.ui.category.ExpendableListEntry;
 import app.guitartext.ui.tekst.TextActivity;
 import app.guitartext.user.UserState;
 import app.guitartext.user.fileInfo.FileInfo;
@@ -93,7 +93,7 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 		Intent intent;
 		if(selectedFileInfo.isDirectory())
 		{
-			intent = new Intent(context, FileBrowseActivity.class);
+			intent = new Intent(context, FileBrowserActivity.class);
 		}
 		else
 		{

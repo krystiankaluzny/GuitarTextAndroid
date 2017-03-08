@@ -1,10 +1,10 @@
-package app.guitartext.ui.start;
+package app.guitartext.ui.category.component;
 
 import android.app.Activity;
 
 import app.guitartext.scopes.ActivityScope;
-import app.guitartext.ui.presenters.fileCategory.FileCategoryPresenter;
-import app.guitartext.ui.presenters.fileCategory.impl.FileCategoryPresenterImpl;
+import app.guitartext.ui.category.presenter.FileCategoryPresenter;
+import app.guitartext.ui.category.presenter.impl.FileCategoryPresenterImpl;
 import app.guitartext.user.UserState;
 import app.guitartext.user.fileInfo.UserFilesInfo;
 import dagger.Module;
@@ -16,11 +16,11 @@ import dagger.Provides;
  */
 
 @Module
-public class MainActivityModule
+public class CategoryActivityModule
 {
 	private final Activity activity;
 
-	public MainActivityModule(Activity activity)
+	public CategoryActivityModule(Activity activity)
 	{
 		this.activity = activity;
 	}
