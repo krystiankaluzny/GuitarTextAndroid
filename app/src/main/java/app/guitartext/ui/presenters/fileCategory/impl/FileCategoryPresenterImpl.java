@@ -3,6 +3,11 @@ package app.guitartext.ui.presenters.fileCategory.impl;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
+
+import com.noveogroup.android.log.Log;
+import com.noveogroup.android.log.Logger;
+import com.noveogroup.android.log.LoggerManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +27,14 @@ import app.guitartext.user.fileInfo.UserFilesInfo;
 
 public class FileCategoryPresenterImpl implements FileCategoryPresenter
 {
+	private static final Logger logger = LoggerManager.getLogger();
+
 	private final Context context;
 	private final UserFilesInfo userFilesInfo;
 	private final UserState userState;
 
 	private List<FileCategoryEntry> fileCategoryEntryList;
+
 
 	public FileCategoryPresenterImpl(Context ctx, UserFilesInfo userFilesInfo, UserState userState)
 	{
@@ -68,7 +76,7 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 	@Override
 	public void categorySelected(int categoryPosition)
 	{
-		//DO NOTHING
+		logger.d("dupa");
 	}
 
 	@Override
