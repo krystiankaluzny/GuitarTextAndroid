@@ -3,6 +3,7 @@ package app.guitartext.ui.category.component;
 import app.guitartext.scopes.ActivityScope;
 import app.guitartext.ui.category.CategoryActivity;
 import app.guitartext.ui.category.CategoryExpendableListAdapter;
+import dagger.Subcomponent;
 
 /**
  * Created by obywatel on 05.03.2017.
@@ -10,8 +11,8 @@ import app.guitartext.ui.category.CategoryExpendableListAdapter;
  */
 
 @ActivityScope
-//@Component(dependencies = UserComponent2.class, modules = CategoryActivityModule.class)
-public interface CategoryActivityComponent2
+@Subcomponent(modules = CategoryModule.class)
+public interface CategoryComponent
 {
 	void inject(CategoryActivity categoryActivity);
 

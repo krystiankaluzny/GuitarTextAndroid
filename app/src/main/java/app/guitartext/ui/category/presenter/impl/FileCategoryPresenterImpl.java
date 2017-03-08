@@ -1,6 +1,6 @@
 package app.guitartext.ui.category.presenter.impl;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
@@ -12,10 +12,10 @@ import java.util.List;
 
 import app.guitartext.R;
 import app.guitartext.ui.browser.FileBrowserActivity;
+import app.guitartext.ui.category.ExpendableListEntry;
 import app.guitartext.ui.category.presenter.FileCategoryEntry;
 import app.guitartext.ui.category.presenter.FileCategoryPresenter;
 import app.guitartext.ui.category.presenter.SubFileCategoryEntry;
-import app.guitartext.ui.category.ExpendableListEntry;
 import app.guitartext.ui.tekst.TextActivity;
 import app.guitartext.user.UserState;
 import app.guitartext.user.fileInfo.FileInfo;
@@ -31,16 +31,15 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 {
 	private static final Logger logger = LoggerManager.getLogger();
 
-	private final Context context;
 	private final UserFilesInfo userFilesInfo;
 	private final UserState userState;
+	private final Activity activity;
 
 	private List<FileCategoryEntry> fileCategoryEntryList;
 
-
-	public FileCategoryPresenterImpl(Context ctx, UserFilesInfo userFilesInfo, UserState userState)
+	public FileCategoryPresenterImpl(Activity activity, UserFilesInfo userFilesInfo, UserState userState)
 	{
-		this.context = ctx;
+		this.activity = activity;
 		this.userFilesInfo = userFilesInfo;
 		this.userState = userState;
 		fileCategoryEntryList = new ArrayList<>();
@@ -78,7 +77,7 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 	@Override
 	public void categorySelected(int categoryPosition)
 	{
-		logger.d("dupa");
+		//DO NOTHING
 	}
 
 	@Override
@@ -93,20 +92,20 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 		Intent intent;
 		if(selectedFileInfo.isDirectory())
 		{
-			intent = new Intent(context, FileBrowserActivity.class);
+			intent = new Intent(activity, FileBrowserActivity.class);
 		}
 		else
 		{
-			intent = new Intent(context, TextActivity.class);
+			intent = new Intent(activity, TextActivity.class);
 		}
 
 		intent.putExtra(ParcelableFileInfoWrapper.EXTRA_FILE_INFO, ParcelableFileInfoWrapper.wrap(selectedFileInfo));
-		context.startActivity(intent);
+		activity.startActivity(intent);
 	}
 
 	private void addBaseCategory()
 	{
-		FileCategoryEntry baseCategory = new FileCategoryEntry(context.getResources().getString(R.string.category_base), android.R.drawable.btn_radio);
+		FileCategoryEntry baseCategory = new FileCategoryEntry(activity.getResources().getString(R.string.category_base), android.R.drawable.btn_radio);
 		addSubEntryToCategory(baseCategory, userFilesInfo.getBaseFiles());
 
 		fileCategoryEntryList.add(baseCategory);
@@ -114,7 +113,7 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 
 	private void addFavouritesCategory()
 	{
-		FileCategoryEntry favouritesCategory = new FileCategoryEntry(context.getResources().getString(R.string.category_favourite), android.R.drawable.btn_star);
+		FileCategoryEntry favouritesCategory = new FileCategoryEntry(activity.getResources().getString(R.string.category_favourite), android.R.drawable.btn_star);
 		addSubEntryToCategory(favouritesCategory, userFilesInfo.getFavouriteFiles());
 
 		fileCategoryEntryList.add(favouritesCategory);
@@ -122,7 +121,7 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 
 	private void addRecentCategory()
 	{
-		FileCategoryEntry recentCategory = new FileCategoryEntry(context.getResources().getString(R.string.category_recent), android.R.drawable.btn_star_big_off);
+		FileCategoryEntry recentCategory = new FileCategoryEntry(activity.getResources().getString(R.string.category_recent), android.R.drawable.btn_star_big_off);
 		addSubEntryToCategory(recentCategory, userFilesInfo.getRecentOpenedFiles());
 
 		fileCategoryEntryList.add(recentCategory);

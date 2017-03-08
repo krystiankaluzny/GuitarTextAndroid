@@ -16,11 +16,11 @@ import dagger.Provides;
  */
 
 @Module
-public class CategoryActivityModule
+public class CategoryModule
 {
 	private final Activity activity;
 
-	public CategoryActivityModule(Activity activity)
+	public CategoryModule(Activity activity)
 	{
 		this.activity = activity;
 	}

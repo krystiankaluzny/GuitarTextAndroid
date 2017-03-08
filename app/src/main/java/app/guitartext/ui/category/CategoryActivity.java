@@ -12,9 +12,9 @@ import javax.inject.Inject;
 
 import app.guitartext.GuitarTextApplication;
 import app.guitartext.R;
-import app.guitartext.ui.category.component.CategoryActivityComponent;
-import app.guitartext.ui.category.component.CategoryActivityComponent2;
-import app.guitartext.ui.category.component.CategoryActivityModule;
+import app.guitartext.ui.category.component.CategoryComponent;
+import app.guitartext.ui.category.component.CategoryComponent2;
+import app.guitartext.ui.category.component.CategoryModule;
 import app.guitartext.ui.category.presenter.FileCategoryPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,7 +25,7 @@ public class CategoryActivity extends AppCompatActivity implements ExpandableLis
 	@BindView(R.id.toolbar) Toolbar toolbar;
 	@BindView(R.id.expendable_list_view) ExpandableListView expandableListView;
 
-	private CategoryActivityComponent categoryActivityComponent;
+	private CategoryComponent categoryComponent;
 
 	@Inject FileCategoryPresenter fileCategoryPresenter;
 
@@ -38,7 +38,7 @@ public class CategoryActivity extends AppCompatActivity implements ExpandableLis
 		ButterKnife.bind(this);
 
 		createComponent();
-		categoryActivityComponent.inject(this);
+		categoryComponent.inject(this);
 
 
 		setSupportActionBar(toolbar);
@@ -46,7 +46,7 @@ public class CategoryActivity extends AppCompatActivity implements ExpandableLis
 		floatingActionButton.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 				.setAction("Action", null).show());
 
-		expandableListView.setAdapter(categoryActivityComponent.expendableListAdapter());
+		expandableListView.setAdapter(categoryComponent.expendableListAdapter());
 
 		expandableListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
 		expandableListView.setOnGroupClickListener(this);
@@ -55,11 +55,11 @@ public class CategoryActivity extends AppCompatActivity implements ExpandableLis
 
 	private void createComponent()
 	{
-		categoryActivityComponent = GuitarTextApplication.get(this)
+		categoryComponent = GuitarTextApplication.get(this)
 				.getUserComponent()
-				.plus(new CategoryActivityModule(this));
+				.plus(new CategoryModule(this));
 
-		CategoryActivityComponent2 categoryActivityComponent2;
+		CategoryComponent2 categoryComponent2;
 	}
 
 	@Override

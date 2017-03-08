@@ -11,6 +11,7 @@ import android.widget.TextView;
 import javax.inject.Inject;
 
 import app.guitartext.R;
+import app.guitartext.ui.ViewHolder;
 import app.guitartext.ui.category.presenter.FileCategoryPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -133,18 +134,15 @@ public class CategoryExpendableListAdapter extends BaseExpandableListAdapter
 		return true;
 	}
 
-	static class GroupViewHolder
+	static class GroupViewHolder extends ViewHolder
 	{
-		@BindView(R.id.textView) TextView textView;
-		@BindView(R.id.imageView) ImageView imageView;
-
 		GroupViewHolder(View view)
 		{
-			ButterKnife.bind(this, view);
+			super(view);
 		}
 	}
 
-	static class ChildViewHolder extends GroupViewHolder
+	private static class ChildViewHolder extends ViewHolder
 	{
 		ChildViewHolder(View view)
 		{

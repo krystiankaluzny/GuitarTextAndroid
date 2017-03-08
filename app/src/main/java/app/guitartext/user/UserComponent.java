@@ -1,8 +1,8 @@
 package app.guitartext.user;
 
 import app.guitartext.scopes.UserScope;
-import app.guitartext.ui.category.component.CategoryActivityComponent;
-import app.guitartext.ui.category.component.CategoryActivityModule;
+import app.guitartext.ui.category.component.CategoryComponent;
+import app.guitartext.ui.category.component.CategoryModule;
 import app.guitartext.user.fileInfo.UserFilesInfo;
 import dagger.Subcomponent;
 
@@ -17,5 +17,5 @@ public interface UserComponent
 {
 	UserFilesInfo userFilesInfo();
 
-	CategoryActivityComponent plus(CategoryActivityModule categoryActivityModule);
+	CategoryComponent plus(CategoryModule categoryModule);
 }
