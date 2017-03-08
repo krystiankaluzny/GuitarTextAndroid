@@ -14,9 +14,7 @@ import dagger.Component;
 
 @ApplicationScope
 @Component(modules = ApplicationModule.class)
-public interface ApplicationComponent
+public interface ApplicationComponent2
 {
 	Context appContext();
-
-	UserComponent plus(UserModule userModule);
 }

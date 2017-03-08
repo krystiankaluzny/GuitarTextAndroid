@@ -50,5 +50,7 @@ public class MainActivity extends AppCompatActivity
 		mainActivityComponent = GuitarTextApplication.get(this)
 				.getUserComponent()
 				.plus(new MainActivityModule());
+
+		MainActivityComponent2 mainActivityComponent2;
 	}
 }

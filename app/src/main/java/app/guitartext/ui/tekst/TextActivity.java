@@ -1,4 +1,4 @@
-package app.guitartext.ui;
+package app.guitartext.ui.tekst;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,7 +11,7 @@ import android.view.MenuItem;
 
 import app.guitartext.R;
 
-public class TextScrollingActivity extends AppCompatActivity
+public class TextActivity extends AppCompatActivity
 {
 
 	@Override

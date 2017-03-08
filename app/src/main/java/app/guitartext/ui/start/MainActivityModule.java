@@ -5,6 +5,7 @@ import android.content.Context;
 import app.guitartext.scopes.ActivityScope;
 import app.guitartext.ui.presenters.fileCategory.FileCategoryPresenter;
 import app.guitartext.ui.presenters.fileCategory.impl.FileCategoryPresenterImpl;
+import app.guitartext.user.UserState;
 import app.guitartext.user.fileInfo.UserFilesInfo;
 import dagger.Module;
 import dagger.Provides;
@@ -19,8 +20,8 @@ public class MainActivityModule
 {
 	@ActivityScope
 	@Provides
-	public FileCategoryPresenter provideFileCategoryPresenter(Context context, UserFilesInfo userFilesInfo)
+	public FileCategoryPresenter provideFileCategoryPresenter(Context context, UserFilesInfo userFilesInfo, UserState userState)
 	{
-		return new FileCategoryPresenterImpl(context, userFilesInfo);
+		return new FileCategoryPresenterImpl(context, userFilesInfo, userState);
 	}
 }

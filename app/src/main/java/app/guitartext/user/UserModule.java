@@ -1,9 +1,7 @@
 package app.guitartext.user;
 
-import android.content.Context;
-
 import app.guitartext.scopes.UserScope;
-import app.guitartext.user.fileInfo.RandomUserFilesInfo;
+import app.guitartext.user.fileInfo.RootUserFileInfo;
 import app.guitartext.user.fileInfo.UserFilesInfo;
 import dagger.Module;
 import dagger.Provides;
@@ -20,6 +18,13 @@ public class UserModule
 	@Provides
 	UserFilesInfo provideUserFilesInfo()
 	{
-		return new RandomUserFilesInfo();
+		return new RootUserFileInfo();
+	}
+
+	@UserScope
+	@Provides
+	UserState provideUserState()
+	{
+		return new UserState();
 	}
 }

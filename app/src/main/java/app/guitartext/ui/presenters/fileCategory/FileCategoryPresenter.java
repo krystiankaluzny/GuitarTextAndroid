@@ -9,11 +9,15 @@ import app.guitartext.ui.start.ExpendableListEntry;
 
 public interface FileCategoryPresenter
 {
-	ExpendableListEntry getCategoryEntry(int groupPosition);
+	ExpendableListEntry getCategoryEntry(int categoryPosition);
 
-	ExpendableListEntry getSubCategoryEntry(int groupPosition, int childPosition);
+	ExpendableListEntry getSubCategoryEntry(int categoryPosition, int subCategoryPosition);
 
 	int getCategoryCount();
 
 	int getSubCategoryCount(int groupPosition);
+
+	void categorySelected(int categoryPosition);
+
+	void subCategorySelected(int categoryPosition, int subCategoryPosition);
 }

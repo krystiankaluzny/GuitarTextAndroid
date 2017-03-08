@@ -1,5 +1,7 @@
 package app.guitartext.user.fileInfo;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 /**
@@ -9,9 +11,9 @@ import java.util.List;
 
 public interface UserFilesInfo
 {
-	List<FileInfo> getBaseFiles();
+	@NonNull List<FileInfo> getBaseFiles();
 
-	List<FileInfo> getFavouriteFiles();
+	@NonNull List<FileInfo> getFavouriteFiles();
 
-	List<FileInfo> getRecentOpenedFiles();
+	@NonNull List<FileInfo> getRecentOpenedFiles();
 }

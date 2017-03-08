@@ -1,18 +1,19 @@
 package app.guitartext.ui.presenters.fileCategory.impl;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import app.guitartext.R;
-import app.guitartext.user.fileInfo.FileInfo;
-import app.guitartext.user.fileInfo.RandomUserFilesInfo;
-import app.guitartext.user.fileInfo.UserFilesInfo;
 import app.guitartext.ui.presenters.fileCategory.FileCategoryEntry;
 import app.guitartext.ui.presenters.fileCategory.FileCategoryPresenter;
 import app.guitartext.ui.presenters.fileCategory.SubFileCategoryEntry;
 import app.guitartext.ui.start.ExpendableListEntry;
-
-import java.util.ArrayList;
-import java.util.List;
+import app.guitartext.user.UserState;
+import app.guitartext.user.fileInfo.FileInfo;
+import app.guitartext.user.fileInfo.UserFilesInfo;
 
 /**
  * Created by obywatel on 03.03.2017.
@@ -22,14 +23,16 @@ import java.util.List;
 public class FileCategoryPresenterImpl implements FileCategoryPresenter
 {
 	private final Context context;
+	private final UserFilesInfo userFilesInfo;
+	private final UserState userState;
+
 	private List<FileCategoryEntry> fileCategoryEntryList;
 
-	private UserFilesInfo userFilesInfo = new RandomUserFilesInfo();
-
-	public FileCategoryPresenterImpl(Context ctx, UserFilesInfo userFilesInfo)
+	public FileCategoryPresenterImpl(Context ctx, UserFilesInfo userFilesInfo, UserState userState)
 	{
 		this.context = ctx;
 		this.userFilesInfo = userFilesInfo;
+		this.userState = userState;
 		fileCategoryEntryList = new ArrayList<>();
 
 		addBaseCategory();
@@ -40,20 +43,13 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 	@Override
 	public ExpendableListEntry getCategoryEntry(int categoryPosition)
 	{
-		if(categoryPosition < 0 || categoryPosition >= fileCategoryEntryList.size()) return null;
-		return fileCategoryEntryList.get(categoryPosition);
+		return getFileCategory(categoryPosition);
 	}
 
 	@Override
 	public ExpendableListEntry getSubCategoryEntry(int categoryPosition, int subCategoryPosition)
 	{
-		if(categoryPosition < 0 || categoryPosition >= fileCategoryEntryList.size()) return null;
-
-		List<SubFileCategoryEntry> subCategories = fileCategoryEntryList.get(categoryPosition).getSubFileCategoryEntryList();
-
-		if(subCategoryPosition < 0 || subCategoryPosition >= subCategories.size()) return null;
-
-		return subCategories.get(subCategoryPosition);
+		return getSubFileCategory(categoryPosition, subCategoryPosition);
 	}
 
 	@Override
@@ -67,6 +63,30 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 	{
 		if(categoryPosition < 0 || categoryPosition >= fileCategoryEntryList.size()) return 0;
 		return fileCategoryEntryList.get(categoryPosition).getSubFileCategoryEntryList().size();
+	}
+
+	@Override
+	public void categorySelected(int categoryPosition)
+	{
+		//DO NOTHING
+	}
+
+	@Override
+	public void subCategorySelected(int categoryPosition, int subCategoryPosition)
+	{
+		SubFileCategoryEntry subFileCategoryEntry = getSubFileCategory(categoryPosition, subCategoryPosition);
+		if(subFileCategoryEntry == null) return;
+
+		FileInfo selectedFileInfo = subFileCategoryEntry.getFileInfo();
+		userState.setLastActiveFile(selectedFileInfo);
+		if(selectedFileInfo.isDirectory())
+		{
+			startFileBrowseActivity();
+		}
+		else
+		{
+			startTextActivity();
+		}
 	}
 
 	private void addBaseCategory()
@@ -99,9 +119,39 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 		{
 			fileCategoryEntry.addFileEntry(
 					new SubFileCategoryEntry(
-							fileInfo.getName(),
+							fileInfo,
 							fileInfo.isDirectory() ? R.drawable.folder : R.drawable.text_plain)
 			);
 		}
+	}
+
+	@Nullable
+	private FileCategoryEntry getFileCategory(int fileCategoryPosition)
+	{
+		if(fileCategoryPosition < 0 || fileCategoryPosition >= fileCategoryEntryList.size())
+			return null;
+
+		return fileCategoryEntryList.get(fileCategoryPosition);
+	}
+
+	@Nullable
+	private SubFileCategoryEntry getSubFileCategory(int categoryPosition, int subCategoryPosition)
+	{
+		if(categoryPosition < 0 || categoryPosition >= fileCategoryEntryList.size()) return null;
+
+		List<SubFileCategoryEntry> subCategories = fileCategoryEntryList.get(categoryPosition).getSubFileCategoryEntryList();
+
+		if(subCategoryPosition < 0 || subCategoryPosition >= subCategories.size()) return null;
+
+		return subCategories.get(subCategoryPosition);
+	}
+
+	private void startFileBrowseActivity()
+	{
+	}
+
+	private void startTextActivity()
+	{
+
 	}
 }
