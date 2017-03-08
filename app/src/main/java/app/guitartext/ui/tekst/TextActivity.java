@@ -5,11 +5,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import app.guitartext.R;
+import app.guitartext.user.fileInfo.FileInfo;
+import app.guitartext.user.fileInfo.ParcelableFileInfoWrapper;
 
 public class TextActivity extends AppCompatActivity
 {
@@ -22,16 +23,11 @@ public class TextActivity extends AppCompatActivity
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
+		FileInfo fileInfo = getIntent().getParcelableExtra(ParcelableFileInfoWrapper.EXTRA_FILE_INFO);
+
 		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-		fab.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
-				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-						.setAction("Action", null).show();
-			}
-		});
+		fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action " + (fileInfo == null), Snackbar.LENGTH_LONG)
+				.setAction("Action", null).show());
 	}
 
 	@Override

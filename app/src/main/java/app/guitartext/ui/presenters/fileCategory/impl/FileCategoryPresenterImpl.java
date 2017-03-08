@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
-
-import com.noveogroup.android.log.Log;
 import com.noveogroup.android.log.Logger;
 import com.noveogroup.android.log.LoggerManager;
 
@@ -21,6 +19,7 @@ import app.guitartext.ui.start.ExpendableListEntry;
 import app.guitartext.ui.tekst.TextActivity;
 import app.guitartext.user.UserState;
 import app.guitartext.user.fileInfo.FileInfo;
+import app.guitartext.user.fileInfo.ParcelableFileInfoWrapper;
 import app.guitartext.user.fileInfo.UserFilesInfo;
 
 /**
@@ -90,14 +89,19 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 
 		FileInfo selectedFileInfo = subFileCategoryEntry.getFileInfo();
 		userState.setLastActiveFile(selectedFileInfo);
+
+		Intent intent;
 		if(selectedFileInfo.isDirectory())
 		{
-			startFileBrowseActivity();
+			intent = new Intent(context, FileBrowseActivity.class);
 		}
 		else
 		{
-			startTextActivity();
+			intent = new Intent(context, TextActivity.class);
 		}
+
+		intent.putExtra(ParcelableFileInfoWrapper.EXTRA_FILE_INFO, ParcelableFileInfoWrapper.wrap(selectedFileInfo));
+		context.startActivity(intent);
 	}
 
 	private void addBaseCategory()
@@ -155,15 +159,5 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 		if(subCategoryPosition < 0 || subCategoryPosition >= subCategories.size()) return null;
 
 		return subCategories.get(subCategoryPosition);
-	}
-
-	private void startFileBrowseActivity()
-	{
-		context.startActivity(new Intent(context, FileBrowseActivity.class));
-	}
-
-	private void startTextActivity()
-	{
-		context.startActivity(new Intent(context, TextActivity.class));
 	}
 }
