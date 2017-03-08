@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements ExpandableListVie
 	{
 		mainActivityComponent = GuitarTextApplication.get(this)
 				.getUserComponent()
-				.plus(new MainActivityModule());
+				.plus(new MainActivityModule(this));
 
 		MainActivityComponent2 mainActivityComponent2;
 	}

@@ -1,6 +1,7 @@
 package app.guitartext.ui.presenters.fileCategory.impl;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 
 
@@ -12,10 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.guitartext.R;
+import app.guitartext.ui.browser.FileBrowseActivity;
 import app.guitartext.ui.presenters.fileCategory.FileCategoryEntry;
 import app.guitartext.ui.presenters.fileCategory.FileCategoryPresenter;
 import app.guitartext.ui.presenters.fileCategory.SubFileCategoryEntry;
 import app.guitartext.ui.start.ExpendableListEntry;
+import app.guitartext.ui.tekst.TextActivity;
 import app.guitartext.user.UserState;
 import app.guitartext.user.fileInfo.FileInfo;
 import app.guitartext.user.fileInfo.UserFilesInfo;
@@ -156,10 +159,11 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 
 	private void startFileBrowseActivity()
 	{
+		context.startActivity(new Intent(context, FileBrowseActivity.class));
 	}
 
 	private void startTextActivity()
 	{
-
+		context.startActivity(new Intent(context, TextActivity.class));
 	}
 }

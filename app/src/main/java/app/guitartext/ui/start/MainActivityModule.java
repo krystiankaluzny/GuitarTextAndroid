@@ -1,6 +1,6 @@
 package app.guitartext.ui.start;
 
-import android.content.Context;
+import android.app.Activity;
 
 import app.guitartext.scopes.ActivityScope;
 import app.guitartext.ui.presenters.fileCategory.FileCategoryPresenter;
@@ -18,10 +18,17 @@ import dagger.Provides;
 @Module
 public class MainActivityModule
 {
+	private final Activity activity;
+
+	public MainActivityModule(Activity activity)
+	{
+		this.activity = activity;
+	}
+
 	@ActivityScope
 	@Provides
-	public FileCategoryPresenter provideFileCategoryPresenter(Context context, UserFilesInfo userFilesInfo, UserState userState)
+	public FileCategoryPresenter provideFileCategoryPresenter(UserFilesInfo userFilesInfo, UserState userState)
 	{
-		return new FileCategoryPresenterImpl(context, userFilesInfo, userState);
+		return new FileCategoryPresenterImpl(activity, userFilesInfo, userState);
 	}
 }
