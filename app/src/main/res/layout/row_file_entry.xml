@@ -4,15 +4,13 @@
 			  android:layout_width="match_parent"
 			  android:layout_height="match_parent"
 			  android:orientation="horizontal"
-			  android:weightSum="1"
-			  android:background="#1f0">
+			  android:weightSum="1">
 
 	<ImageView
 		android:id="@+id/imageView"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		app:srcCompat="@android:drawable/btn_minus"
-		android:background="#404"
 		android:paddingStart="@dimen/activity_horizontal_margin"
 		android:paddingEnd="@dimen/activity_horizontal_margin"/>
 
@@ -21,6 +19,5 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:textColor="#000"
-		android:textSize="25sp"
-		android:background="#42f"/>
+		android:textSize="25sp"/>
 </LinearLayout>
