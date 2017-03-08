@@ -2,7 +2,6 @@ package app.guitartext.ui.category;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -21,7 +20,6 @@ import butterknife.ButterKnife;
 
 public class CategoryActivity extends AppCompatActivity implements ExpandableListView.OnGroupClickListener, ExpandableListView.OnChildClickListener
 {
-	@BindView(R.id.fab) FloatingActionButton floatingActionButton;
 	@BindView(R.id.toolbar) Toolbar toolbar;
 	@BindView(R.id.expendable_list_view) ExpandableListView expandableListView;
 

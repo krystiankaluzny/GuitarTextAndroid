@@ -2,7 +2,6 @@ package app.guitartext.ui.browser.component;
 
 import app.guitartext.scopes.ActivityScope;
 import app.guitartext.ui.browser.FileBrowserActivity;
-import app.guitartext.ui.category.component.CategoryModule;
 import dagger.Subcomponent;
 
 /**
