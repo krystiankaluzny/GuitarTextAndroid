@@ -28,25 +28,22 @@ public class CategoryActivity extends AppCompatActivity implements ExpandableLis
 	private CategoryComponent categoryComponent;
 
 	@Inject FileCategoryPresenter fileCategoryPresenter;
+	@Inject CategoryExpendableListAdapter categoryExpendableListAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_category);
 
 		ButterKnife.bind(this);
 
 		createComponent();
 		categoryComponent.inject(this);
 
-
 		setSupportActionBar(toolbar);
 
-		floatingActionButton.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-				.setAction("Action", null).show());
-
-		expandableListView.setAdapter(categoryComponent.expendableListAdapter());
+		expandableListView.setAdapter(categoryExpendableListAdapter);
 
 		expandableListView.setChoiceMode(ExpandableListView.CHOICE_MODE_SINGLE);
 		expandableListView.setOnGroupClickListener(this);

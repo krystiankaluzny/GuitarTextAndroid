@@ -15,6 +15,4 @@ import dagger.Subcomponent;
 public interface CategoryComponent
 {
 	void inject(CategoryActivity categoryActivity);
-
-	CategoryExpendableListAdapter expendableListAdapter();
 }
