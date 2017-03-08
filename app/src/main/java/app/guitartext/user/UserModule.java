@@ -19,6 +19,7 @@ public class UserModule
 	UserFilesInfo provideUserFilesInfo()
 	{
 		return new RootUserFileInfo();
+//		return new RandomUserFilesInfo();
 	}
 
 	@UserScope

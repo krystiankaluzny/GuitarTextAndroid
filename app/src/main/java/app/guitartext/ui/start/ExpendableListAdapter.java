@@ -25,25 +25,6 @@ public class ExpendableListAdapter extends BaseExpandableListAdapter
 	private final Context context;
 	private final FileCategoryPresenter fileCategoryPresenter;
 
-	static class GroupViewHolder
-	{
-		@BindView(R.id.textView) TextView textView;
-		@BindView(R.id.imageView) ImageView imageView;
-
-		GroupViewHolder(View view)
-		{
-			ButterKnife.bind(this, view);
-		}
-	}
-
-	static class ChildViewHolder extends GroupViewHolder
-	{
-		ChildViewHolder(View view)
-		{
-			super(view);
-		}
-	}
-
 	@Inject
 	public ExpendableListAdapter(Context context, FileCategoryPresenter fileCategoryPresenter)
 	{
@@ -116,7 +97,6 @@ public class ExpendableListAdapter extends BaseExpandableListAdapter
 
 		groupViewHolder.textView.setText(groupEntry.getName());
 		groupViewHolder.imageView.setImageResource(groupEntry.getIconResourceId());
-
 		return convertView;
 	}
 
@@ -141,7 +121,6 @@ public class ExpendableListAdapter extends BaseExpandableListAdapter
 			childViewHolder = (ChildViewHolder) convertView.getTag();
 		}
 
-
 		childViewHolder.textView.setText(childEntry.getName());
 		childViewHolder.imageView.setImageResource(childEntry.getIconResourceId());
 
@@ -151,6 +130,25 @@ public class ExpendableListAdapter extends BaseExpandableListAdapter
 	@Override
 	public boolean isChildSelectable(int groupPosition, int childPosition)
 	{
-		return false;
+		return true;
+	}
+
+	static class GroupViewHolder
+	{
+		@BindView(R.id.textView) TextView textView;
+		@BindView(R.id.imageView) ImageView imageView;
+
+		GroupViewHolder(View view)
+		{
+			ButterKnife.bind(this, view);
+		}
+	}
+
+	static class ChildViewHolder extends GroupViewHolder
+	{
+		ChildViewHolder(View view)
+		{
+			super(view);
+		}
 	}
 }
