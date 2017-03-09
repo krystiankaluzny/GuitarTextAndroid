@@ -1,6 +1,7 @@
 package app.guitartext.ui.browser.presenter.impl;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 
 import java.io.File;
@@ -11,7 +12,9 @@ import java.util.List;
 import app.guitartext.R;
 import app.guitartext.ui.ListEntry;
 import app.guitartext.ui.browser.presenter.FileBrowserPresenter;
+import app.guitartext.ui.tekst.TextActivity;
 import app.guitartext.user.fileInfo.FileInfo;
+import app.guitartext.user.fileInfo.ParcelableFileInfoWrapper;
 
 /**
  * Created by obywatel on 08.03.2017.
@@ -50,7 +53,21 @@ public class FileBrowserPresenterImpl implements FileBrowserPresenter
 	@Override
 	public void fileSelected(int filePosition)
 	{
-
+		FileListEntry fileListEntry = getFileListEntry(filePosition);
+		if(fileListEntry == null)
+		{
+			browseLocation(ROOT_LOCATION);
+		}
+		else if(fileListEntry.getFileInfo().isDirectory())
+		{
+			browseLocation(fileListEntry.getFileInfo());
+		}
+		else
+		{
+			Intent intent = new Intent(activity, TextActivity.class);
+			intent.putExtra(ParcelableFileInfoWrapper.EXTRA_FILE_INFO, ParcelableFileInfoWrapper.wrap(fileListEntry.getFileInfo()));
+			activity.startActivity(intent);
+		}
 	}
 
 	@Nullable

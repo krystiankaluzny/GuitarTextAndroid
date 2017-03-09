@@ -55,5 +55,6 @@ public class FileBrowserActivity extends AppCompatActivity implements AdapterVie
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	{
 		fileBrowserPresenter.fileSelected(position);
+		fileBrowserAdapter.notifyDataSetChanged();
 	}
 }
