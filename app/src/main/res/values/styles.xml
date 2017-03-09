@@ -17,4 +17,12 @@
 
 	<style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
+	<style name="TextViewStyle" parent="android:Widget.TextView">
+		<item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+		<item name="android:layout_gravity">center_vertical</item>
+	</style>
+
+	<style name="TextViewStyle.Large" parent="android:Widget.TextView">
+		<item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+	</style>
 </resources>
