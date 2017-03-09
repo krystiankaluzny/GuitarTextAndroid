@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import app.guitartext.ui.browser.PathLayout;
 import app.guitartext.ui.browser.presenter.FileBrowserPresenter;
 import app.guitartext.ui.browser.presenter.PathItem;
-import app.guitartext.ui.tekst.TextActivity;
+import app.guitartext.ui.text.TextActivity;
 import app.guitartext.user.fileInfo.FileInfo;
 import app.guitartext.user.fileInfo.ParcelableFileInfoWrapper;
 

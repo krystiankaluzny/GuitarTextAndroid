@@ -32,6 +32,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
+    compile 'com.noveogroup.android:android-logger:1.3.5'
+    compile 'com.androidessence.lib:richtextview:1.0.3'
 
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
@@ -40,5 +42,5 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
     provided 'javax.annotation:jsr250-api:1.0'
     
-    compile 'com.noveogroup.android:android-logger:1.3.5'
+
 }

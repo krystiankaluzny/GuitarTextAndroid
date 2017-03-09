@@ -16,7 +16,7 @@ import app.guitartext.ui.category.ExpendableListEntry;
 import app.guitartext.ui.category.presenter.FileCategoryEntry;
 import app.guitartext.ui.category.presenter.FileCategoryPresenter;
 import app.guitartext.ui.category.presenter.SubFileCategoryEntry;
-import app.guitartext.ui.tekst.TextActivity;
+import app.guitartext.ui.text.TextActivity;
 import app.guitartext.user.UserState;
 import app.guitartext.user.fileInfo.FileInfo;
 import app.guitartext.user.fileInfo.ParcelableFileInfoWrapper;

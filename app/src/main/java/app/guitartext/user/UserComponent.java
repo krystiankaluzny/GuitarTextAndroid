@@ -5,6 +5,8 @@ import app.guitartext.ui.browser.component.FileBrowserComponent;
 import app.guitartext.ui.browser.component.FileBrowserModule;
 import app.guitartext.ui.category.component.CategoryComponent;
 import app.guitartext.ui.category.component.CategoryModule;
+import app.guitartext.ui.text.component.TextModule;
+import app.guitartext.ui.text.presenter.TextComponent;
 import app.guitartext.user.fileInfo.UserFilesInfo;
 import dagger.Subcomponent;
 
@@ -22,4 +24,6 @@ public interface UserComponent
 	CategoryComponent plus(CategoryModule categoryModule);
 
 	FileBrowserComponent plus(FileBrowserModule fileBrowserModule);
+
+	TextComponent plus(TextModule textModule);
 }
