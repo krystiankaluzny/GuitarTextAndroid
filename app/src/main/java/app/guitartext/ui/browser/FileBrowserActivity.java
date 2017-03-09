@@ -48,7 +48,7 @@ public class FileBrowserActivity extends AppCompatActivity implements AdapterVie
 	{
 		fileBrowserComponent = GuitarTextApplication.get(this)
 				.getUserComponent()
-				.plus(new FileBrowserModule(this, getIntent().getParcelableExtra(ParcelableFileInfoWrapper.EXTRA_FILE_INFO)));
+				.plus(new FileBrowserModule(this, (ParcelableFileInfoWrapper)getIntent().getParcelableExtra(ParcelableFileInfoWrapper.EXTRA_FILE_INFO)));
 	}
 
 	@Override
