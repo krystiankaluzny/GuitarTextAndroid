@@ -134,7 +134,7 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 			fileCategoryEntry.addFileEntry(
 					new SubFileCategoryEntry(
 							fileInfo,
-							fileInfo.isDirectory() ? R.drawable.folder : R.drawable.text_plain)
+							fileInfo.isDirectory() ? R.drawable.folder_base : R.drawable.file_base)
 			);
 		}
 	}

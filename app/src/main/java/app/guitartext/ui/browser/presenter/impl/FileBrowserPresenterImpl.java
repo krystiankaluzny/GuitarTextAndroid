@@ -90,7 +90,7 @@ public class FileBrowserPresenterImpl implements FileBrowserPresenter
 		for(File subFile : subFiles)
 		{
 			FileInfo fileInfo = new FileInfo(i, subFile.isDirectory(), subFile.getAbsolutePath(), subFile.getName());
-			int resourceId = fileInfo.isDirectory() ? R.drawable.folder : R.drawable.text_plain;
+			int resourceId = fileInfo.isDirectory() ? R.drawable.folder_base : R.drawable.file_base;
 			currentEntryList.add(new FileListEntry(fileInfo, resourceId));
 			i++;
 		}

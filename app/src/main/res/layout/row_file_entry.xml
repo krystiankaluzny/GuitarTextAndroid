@@ -10,7 +10,7 @@
 		android:id="@+id/imageView"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		app:srcCompat="@android:drawable/btn_minus"
+		app:srcCompat="@drawable/file_base"
 		android:paddingStart="@dimen/activity_horizontal_margin"
 		android:paddingEnd="@dimen/activity_horizontal_margin"/>
 
@@ -18,5 +18,5 @@
 		android:id="@+id/textView"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:textSize="25sp"/>
+		/>
 </LinearLayout>

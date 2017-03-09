@@ -35,11 +35,11 @@ public class MainClass
 	{
 		context = new Context(Race.Negroid);
 //		DaggerTownComponent
-		TownComponent townComponent = DaggerTownComponent.builder()
-				.schoolModule(new SchoolModule(context))
-				.build();
-
-		Town niggaSmurfsVillage = new Town(townComponent);
-		Log.d("test", niggaSmurfsVillage.toString());
+//		TownComponent townComponent = DaggerTownComponent.builder()
+//				.schoolModule(new SchoolModule(context))
+//				.build();
+//
+//		Town niggaSmurfsVillage = new Town(townComponent);
+//		Log.d("test", niggaSmurfsVillage.toString());
 	}
 }
