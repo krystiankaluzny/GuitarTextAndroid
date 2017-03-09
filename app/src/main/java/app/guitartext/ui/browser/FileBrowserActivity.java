@@ -55,7 +55,7 @@ public class FileBrowserActivity extends AppCompatActivity implements FileBrowse
 				.getUserComponent()
 				.plus(new FileBrowserModule(
 						this,
-						(ParcelableFileInfoWrapper) getIntent().getParcelableExtra(ParcelableFileInfoWrapper.EXTRA_FILE_INFO),
+						ParcelableFileInfoWrapper.fromIntent(getIntent()),
 						this));
 	}
 

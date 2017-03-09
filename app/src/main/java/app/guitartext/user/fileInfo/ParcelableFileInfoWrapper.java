@@ -1,5 +1,6 @@
 package app.guitartext.user.fileInfo;
 
+import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -25,6 +26,11 @@ public class ParcelableFileInfoWrapper extends FileInfo implements Parcelable
 	public static ParcelableFileInfoWrapper wrap(FileInfo fileInfo)
 	{
 		return new ParcelableFileInfoWrapper(fileInfo);
+	}
+
+	public static ParcelableFileInfoWrapper fromIntent(Intent intent)
+	{
+		return (ParcelableFileInfoWrapper) intent.getParcelableExtra(ParcelableFileInfoWrapper.EXTRA_FILE_INFO);
 	}
 
 	@Override
