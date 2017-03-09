@@ -2,6 +2,7 @@ package app.guitartext.ui.browser.component;
 
 import app.guitartext.scopes.ActivityScope;
 import app.guitartext.ui.browser.FileBrowserActivity;
+import app.guitartext.user.fileInfo.FileInfo;
 import dagger.Subcomponent;
 
 /**
@@ -14,4 +15,6 @@ import dagger.Subcomponent;
 public interface FileBrowserComponent
 {
 	void inject(FileBrowserActivity fileBrowserActivity);
+
+	FileInfo startFileLocation();
 }

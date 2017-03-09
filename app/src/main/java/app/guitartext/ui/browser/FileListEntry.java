@@ -1,4 +1,4 @@
-package app.guitartext.ui.browser.presenter.impl;
+package app.guitartext.ui.browser;
 
 import app.guitartext.ui.ListEntry;
 import app.guitartext.user.fileInfo.FileInfo;

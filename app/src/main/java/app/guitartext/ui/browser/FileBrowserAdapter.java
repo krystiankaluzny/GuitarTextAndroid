@@ -4,54 +4,38 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 import app.guitartext.R;
 import app.guitartext.ui.ListEntry;
 import app.guitartext.ui.ViewHolder;
-import app.guitartext.ui.browser.presenter.FileBrowserPresenter;
+import app.guitartext.user.fileInfo.FileInfo;
 
 /**
  * Created by obywatel on 08.03.2017.
  * Modified by
  */
 
-public class FileBrowserAdapter extends BaseAdapter
+public class FileBrowserAdapter extends ArrayAdapter<FileListEntry>
 {
 	private final Context context;
-	private final FileBrowserPresenter fileBrowserPresenter;
 
 	@Inject
-	public FileBrowserAdapter(Context context, FileBrowserPresenter fileBrowserPresenter)
+	public FileBrowserAdapter(Context context)
 	{
+		super(context, 0);
 		this.context = context;
-		this.fileBrowserPresenter = fileBrowserPresenter;
-	}
-
-	@Override
-	public int getCount()
-	{
-		return fileBrowserPresenter.getFileCount();
-	}
-
-	@Override
-	public Object getItem(int position)
-	{
-		return fileBrowserPresenter.getFileEntry(position);
-	}
-
-	@Override
-	public long getItemId(int position)
-	{
-		return position;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		ListEntry listEntry = fileBrowserPresenter.getFileEntry(position);
+		ListEntry listEntry = getItem(position);
 
 		if(listEntry == null) return convertView;
 
@@ -73,6 +57,19 @@ public class FileBrowserAdapter extends BaseAdapter
 		viewHolder.imageView.setImageResource(listEntry.getIconResourceId());
 
 		return convertView;
+	}
+
+	public void setData(List<FileInfo> fileInfoList)
+	{
+		List<FileListEntry> fileListEntryList = new ArrayList<>(fileInfoList.size());
+		for(FileInfo fileInfo : fileInfoList)
+		{
+			int resourceId = fileInfo.isDirectory() ? R.drawable.folder_base : R.drawable.file_base;
+			fileListEntryList.add(new FileListEntry(fileInfo, resourceId));
+		}
+
+		clear();
+		addAll(fileListEntryList);
 	}
 
 }

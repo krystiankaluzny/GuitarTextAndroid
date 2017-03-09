@@ -19,17 +19,40 @@ public class FileBrowserModule
 {
 	private final Activity activity;
 	private final FileInfo fileInfo;
+	private final FileBrowserPresenter.View view;
 
-	public FileBrowserModule(Activity activity, FileInfo fileInfo)
+	public FileBrowserModule(Activity activity, FileInfo fileInfo, FileBrowserPresenter.View view)
 	{
 		this.activity = activity;
 		this.fileInfo = fileInfo;
+		this.view = view;
 	}
 
 	@ActivityScope
 	@Provides
-	FileBrowserPresenter provideFileBrowserPresenter()
+	public Activity provideActivity()
 	{
-		return new FileBrowserPresenterImpl(activity, fileInfo);
+		return activity;
+	}
+
+	@ActivityScope
+	@Provides
+	public FileInfo provideFileInfo()
+	{
+		return fileInfo;
+	}
+
+	@ActivityScope
+	@Provides
+	public FileBrowserPresenter.View provideView()
+	{
+		return view;
+	}
+
+	@ActivityScope
+	@Provides
+	FileBrowserPresenter provideFileBrowserPresenter(FileBrowserPresenterImpl impl)
+	{
+		return impl;
 	}
 }
