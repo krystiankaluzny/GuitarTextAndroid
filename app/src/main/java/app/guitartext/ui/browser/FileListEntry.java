@@ -1,7 +1,7 @@
 package app.guitartext.ui.browser;
 
-import app.guitartext.ui.ListEntry;
-import app.guitartext.user.fileInfo.FileInfo;
+import app.guitartext.presenter.ListEntry;
+import app.guitartext.model.fileInfo.FileInfo;
 
 /**
  * Created by obywatel on 08.03.2017.

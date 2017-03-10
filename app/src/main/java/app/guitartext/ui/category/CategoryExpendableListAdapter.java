@@ -5,16 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import javax.inject.Inject;
 
 import app.guitartext.R;
+import app.guitartext.presenter.category.ExpendableListEntry;
 import app.guitartext.ui.ViewHolder;
-import app.guitartext.ui.category.presenter.FileCategoryPresenter;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import app.guitartext.presenter.category.FileCategoryPresenter;
 
 /**
  * Created by obywatel on 03.03.2017.

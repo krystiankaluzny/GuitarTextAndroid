@@ -12,9 +12,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import app.guitartext.R;
-import app.guitartext.ui.ListEntry;
+import app.guitartext.presenter.ListEntry;
 import app.guitartext.ui.ViewHolder;
-import app.guitartext.user.fileInfo.FileInfo;
+import app.guitartext.model.fileInfo.FileInfo;
 
 /**
  * Created by obywatel on 08.03.2017.
@@ -71,5 +71,4 @@ public class FileBrowserAdapter extends ArrayAdapter<FileListEntry>
 		clear();
 		addAll(fileListEntryList);
 	}
-
 }

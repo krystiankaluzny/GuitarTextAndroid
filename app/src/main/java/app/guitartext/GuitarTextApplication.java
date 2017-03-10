@@ -3,10 +3,15 @@ package app.guitartext;
 import android.app.Application;
 import android.content.Context;
 
-import app.guitartext.user.DaggerUserComponent2;
-import app.guitartext.user.UserComponent;
-import app.guitartext.user.UserComponent2;
-import app.guitartext.user.UserModule;
+import app.guitartext.dagger.app.ApplicationComponent;
+import app.guitartext.dagger.app.ApplicationComponent2;
+import app.guitartext.dagger.app.ApplicationModule;
+import app.guitartext.dagger.app.DaggerApplicationComponent;
+import app.guitartext.dagger.app.DaggerApplicationComponent2;
+import app.guitartext.dagger.user.DaggerUserComponent2;
+import app.guitartext.dagger.user.UserComponent;
+import app.guitartext.dagger.user.UserComponent2;
+import app.guitartext.dagger.user.UserModule;
 
 /**
  * Created by obywatel on 05.03.2017.

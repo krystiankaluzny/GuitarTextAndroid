@@ -9,7 +9,7 @@ import android.widget.LinearLayout;
 import java.util.List;
 
 import app.guitartext.R;
-import app.guitartext.ui.browser.presenter.PathItem;
+import app.guitartext.presenter.browser.PathItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

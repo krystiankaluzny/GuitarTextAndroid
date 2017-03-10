@@ -10,10 +10,10 @@ import javax.inject.Inject;
 
 import app.guitartext.GuitarTextApplication;
 import app.guitartext.R;
-import app.guitartext.ui.text.component.TextModule;
-import app.guitartext.ui.text.presenter.TextComponent;
-import app.guitartext.ui.text.presenter.TextPresenter;
-import app.guitartext.user.fileInfo.ParcelableFileInfoWrapper;
+import app.guitartext.dagger.activity.TextModule;
+import app.guitartext.dagger.activity.TextComponent;
+import app.guitartext.presenter.text.TextPresenter;
+import app.guitartext.model.fileInfo.ParcelableFileInfoWrapper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -50,7 +50,7 @@ public class TextActivity extends AppCompatActivity implements TextPresenter.Vie
 	}
 
 	@Override
-	public void textRead(String text)
+	public void onTextRead(String text)
 	{
 		richTextView.setText(text);
 	}

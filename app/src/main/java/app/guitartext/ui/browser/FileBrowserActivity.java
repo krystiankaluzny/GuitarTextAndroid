@@ -11,12 +11,12 @@ import javax.inject.Inject;
 
 import app.guitartext.GuitarTextApplication;
 import app.guitartext.R;
-import app.guitartext.ui.browser.component.FileBrowserComponent;
-import app.guitartext.ui.browser.component.FileBrowserModule;
-import app.guitartext.ui.browser.presenter.FileBrowserPresenter;
-import app.guitartext.ui.browser.presenter.PathItem;
-import app.guitartext.user.fileInfo.FileInfo;
-import app.guitartext.user.fileInfo.ParcelableFileInfoWrapper;
+import app.guitartext.dagger.activity.FileBrowserComponent;
+import app.guitartext.dagger.activity.FileBrowserModule;
+import app.guitartext.presenter.browser.FileBrowserPresenter;
+import app.guitartext.presenter.browser.PathItem;
+import app.guitartext.model.fileInfo.FileInfo;
+import app.guitartext.model.fileInfo.ParcelableFileInfoWrapper;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;

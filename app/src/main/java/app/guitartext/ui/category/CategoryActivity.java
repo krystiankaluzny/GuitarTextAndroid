@@ -1,7 +1,6 @@
 package app.guitartext.ui.category;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,10 +10,10 @@ import javax.inject.Inject;
 
 import app.guitartext.GuitarTextApplication;
 import app.guitartext.R;
-import app.guitartext.ui.category.component.CategoryComponent;
-import app.guitartext.ui.category.component.CategoryComponent2;
-import app.guitartext.ui.category.component.CategoryModule;
-import app.guitartext.ui.category.presenter.FileCategoryPresenter;
+import app.guitartext.dagger.activity.CategoryComponent;
+import app.guitartext.dagger.activity.CategoryComponent2;
+import app.guitartext.dagger.activity.CategoryModule;
+import app.guitartext.presenter.category.FileCategoryPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

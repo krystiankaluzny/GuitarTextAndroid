@@ -1,6 +1,6 @@
 package app.guitartext.user;
 
-import app.guitartext.user.fileInfo.FileInfo;
+import app.guitartext.model.fileInfo.FileInfo;
 
 /**
  * Created by obywatel on 08.03.2017.
