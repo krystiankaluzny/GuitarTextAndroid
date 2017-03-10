@@ -4,6 +4,7 @@ import android.content.Context;
 
 import app.guitartext.dagger.scopes.ApplicationScope;
 import app.guitartext.model.fileInfo.FileInfoService;
+import app.guitartext.model.fileInfo.FileSystemFileInfoService;
 import dagger.Module;
 import dagger.Provides;
 
@@ -31,8 +32,8 @@ public class ApplicationModule
 
 	@ApplicationScope
 	@Provides
-	public FileInfoService provideFileInfoService()
+	public FileInfoService provideFileInfoService(FileSystemFileInfoService impl)
 	{
-		return new FileInfoService();
+		return impl;
 	}
 }

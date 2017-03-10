@@ -1,43 +1,14 @@
 package app.guitartext.model.fileInfo;
 
-import android.text.TextUtils;
-
-import com.google.common.collect.Lists;
-import com.google.common.io.Files;
-import com.noveogroup.android.log.Logger;
-import com.noveogroup.android.log.LoggerManager;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
-
-import javax.inject.Inject;
 
 /**
  * Created by obywatel on 10.03.2017.
  * Modified by
  */
-
-public class FileInfoService
+public interface FileInfoService
 {
-	private static final Logger logger = LoggerManager.getLogger();
-	{
-	}
-	private static final FileInfo ROOT_LOCATION = new FileInfo(0, true, "/", "/");
-
-	@Inject
-	public FileInfoService()
-	{
-	}
-
-	public static FileInfo getRootLocation()
-	{
-		return ROOT_LOCATION;
-	}
+	FileInfo getRootLocation();
 
 	/**
 	 * If {@code fileInfo} is valid directory return it.
@@ -47,94 +18,13 @@ public class FileInfoService
 	 * @param fileInfo
 	 * @return
 	 */
-	public FileInfo getValidateDirectory(FileInfo fileInfo)
-	{
-		if(fileInfo == null) return ROOT_LOCATION;
+	FileInfo getValidateDirectory(FileInfo fileInfo);
 
-		File file = new File(fileInfo.getPath());
-		if(!file.exists())
-		{
-			return ROOT_LOCATION;
-		}
+	List<FileInfo> getLocationContent(FileInfo location);
 
-		if(!file.isDirectory())
-		{
-			file = file.getParentFile();
-			return new FileInfo(0, true, file.getAbsolutePath(), file.getName());
-		}
+	List<FileInfo> getFileWithAncestors(FileInfo fileInfo);
 
-		return fileInfo;
-	}
+	String readFile(FileInfo fileInfo);
 
-	public List<FileInfo> getLocationContent(FileInfo location)
-	{
-		File file = new File(location.getPath());
-		File[] subFiles = file.listFiles();
-
-		List<FileInfo> locationContent;
-		if(subFiles == null || subFiles.length == 0)
-		{
-			return Collections.emptyList();
-		}
-
-		locationContent = new ArrayList<>(subFiles.length);
-		int i = 0;
-		for(File subFile : subFiles)
-		{
-			locationContent.add(createFileInfo(i, subFile));
-			i++;
-		}
-
-		return locationContent;
-	}
-
-	public List<FileInfo> getFileWithAncestors(FileInfo fileInfo)
-	{
-		LinkedList<FileInfo> pathItemList = new LinkedList<>();
-
-		File file = new File(fileInfo.getPath());
-
-		FileInfo info = createFileInfo(0, file);
-
-		while(file != null && !TextUtils.isEmpty(info.getName()))
-		{
-			pathItemList.addFirst(info);
-			file = file.getParentFile();
-			info = createFileInfo(0, file);
-		}
-
-		pathItemList.addFirst(ROOT_LOCATION);
-		return pathItemList;
-	}
-
-	public String readFile(FileInfo fileInfo)
-	{
-		String string = "";
-		try
-		{
-			string = Files.toString(new File(fileInfo.getPath()), Charset.forName("UTF-8"));
-		} catch(IOException e)
-		{
-			logger.e(e);
-		}
-		return string;
-	}
-
-	public List<String> readFileLines(FileInfo fileInfo)
-	{
-		List<String> lines = Collections.emptyList();
-		try
-		{
-			lines = Files.readLines(new File(fileInfo.getPath()), Charset.forName("UTF-8"));
-		} catch(IOException e)
-		{
-			logger.e(e);
-		}
-		return lines;
-	}
-	private FileInfo createFileInfo(int position, File file)
-	{
-		if(file == null) return new FileInfo(position, false, "", "");
-		return new FileInfo(position, file.isDirectory(), file.getAbsolutePath(), file.getName());
-	}
+	List<String> readFileLines(FileInfo fileInfo);
 }
