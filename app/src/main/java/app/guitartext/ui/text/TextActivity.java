@@ -48,4 +48,10 @@ public class TextActivity extends AppCompatActivity implements TextPresenter.Vie
 						this,
 						this));
 	}
+
+	@Override
+	public void textRead(String text)
+	{
+		richTextView.setText(text);
+	}
 }

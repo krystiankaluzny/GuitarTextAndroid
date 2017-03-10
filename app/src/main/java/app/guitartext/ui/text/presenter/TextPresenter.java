@@ -13,6 +13,6 @@ public interface TextPresenter
 
 	interface View
 	{
-
+		void textRead(String text);
 	}
 }
