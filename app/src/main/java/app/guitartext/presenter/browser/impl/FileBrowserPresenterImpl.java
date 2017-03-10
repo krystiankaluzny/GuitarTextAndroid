@@ -13,7 +13,7 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import app.guitartext.model.fileInfo.FileInfoManager;
+import app.guitartext.model.fileInfo.FileInfoService;
 import app.guitartext.ui.browser.PathLayout;
 import app.guitartext.presenter.browser.FileBrowserPresenter;
 import app.guitartext.presenter.browser.PathItem;
@@ -31,7 +31,7 @@ public class FileBrowserPresenterImpl implements FileBrowserPresenter, PathLayou
 	private static final FileInfo ROOT_LOCATION = new FileInfo(0, true, "/", "/");
 	private final Activity activity;
 	private final FileInfo startFileLocation;
-	private final FileInfoManager fileInfoManager;
+	private final FileInfoService fileInfoService;
 	private final FileBrowserPresenter.View view;
 
 	private FileInfo currentLocation;
@@ -39,12 +39,12 @@ public class FileBrowserPresenterImpl implements FileBrowserPresenter, PathLayou
 	private List<PathItem> currentLocationChain = Collections.emptyList();
 
 	@Inject
-	public FileBrowserPresenterImpl(FileBrowserPresenter.View view, Activity activity, FileInfo startFileLocation, FileInfoManager fileInfoManager)
+	public FileBrowserPresenterImpl(FileBrowserPresenter.View view, Activity activity, FileInfo startFileLocation, FileInfoService fileInfoService)
 	{
 		this.view = view;
 		this.activity = activity;
 		this.startFileLocation = startFileLocation;
-		this.fileInfoManager = fileInfoManager;
+		this.fileInfoService = fileInfoService;
 	}
 
 	@Override
@@ -106,13 +106,13 @@ public class FileBrowserPresenterImpl implements FileBrowserPresenter, PathLayou
 
 	private void browseLocation(FileInfo startLocation)
 	{
-		currentLocation = fileInfoManager.getValidateDirectory(startLocation);
-		currentLocationContent = fileInfoManager.getLocationContent(currentLocation);
+		currentLocation = fileInfoService.getValidateDirectory(startLocation);
+		currentLocationContent = fileInfoService.getLocationContent(currentLocation);
 	}
 
 	private void updatePathChain()
 	{
-		List<FileInfo> fileInfoList = fileInfoManager.getFileWithAncestors(currentLocation);
+		List<FileInfo> fileInfoList = fileInfoService.getFileWithAncestors(currentLocation);
 
 		currentLocationChain = Lists.transform(fileInfoList, input -> new PathItem(input.getName(), input));
 	}

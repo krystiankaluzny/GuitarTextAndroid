@@ -2,7 +2,14 @@ package app.guitartext.model.fileInfo;
 
 import android.text.TextUtils;
 
+import com.google.common.collect.Lists;
+import com.google.common.io.Files;
+import com.noveogroup.android.log.Logger;
+import com.noveogroup.android.log.LoggerManager;
+
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -15,12 +22,15 @@ import javax.inject.Inject;
  * Modified by
  */
 
-public class FileInfoManager
+public class FileInfoService
 {
+	private static final Logger logger = LoggerManager.getLogger();
+	{
+	}
 	private static final FileInfo ROOT_LOCATION = new FileInfo(0, true, "/", "/");
 
 	@Inject
-	public FileInfoManager()
+	public FileInfoService()
 	{
 	}
 
@@ -31,8 +41,8 @@ public class FileInfoManager
 
 	/**
 	 * If {@code fileInfo} is valid directory return it.
-	 * If {@code fileInfo} is valid file function return it's parent directory.
-	 * If {{@code fileInfo} is invalid file info for root will be return.
+	 * If {@code fileInfo} is valid file return it's parent directory.
+	 * If {{@code fileInfo} is invalid file info for root will be returned.
 	 *
 	 * @param fileInfo
 	 * @return
@@ -88,7 +98,7 @@ public class FileInfoManager
 
 		while(file != null && !TextUtils.isEmpty(info.getName()))
 		{
-			pathItemList.addFirst(fileInfo);
+			pathItemList.addFirst(info);
 			file = file.getParentFile();
 			info = createFileInfo(0, file);
 		}
@@ -97,6 +107,31 @@ public class FileInfoManager
 		return pathItemList;
 	}
 
+	public String readFile(FileInfo fileInfo)
+	{
+		String string = "";
+		try
+		{
+			string = Files.toString(new File(fileInfo.getPath()), Charset.forName("UTF-8"));
+		} catch(IOException e)
+		{
+			logger.e(e);
+		}
+		return string;
+	}
+
+	public List<String> readFileLines(FileInfo fileInfo)
+	{
+		List<String> lines = Collections.emptyList();
+		try
+		{
+			lines = Files.readLines(new File(fileInfo.getPath()), Charset.forName("UTF-8"));
+		} catch(IOException e)
+		{
+			logger.e(e);
+		}
+		return lines;
+	}
 	private FileInfo createFileInfo(int position, File file)
 	{
 		if(file == null) return new FileInfo(position, false, "", "");
