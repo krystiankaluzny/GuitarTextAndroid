@@ -3,6 +3,7 @@ package app.guitartext.dagger.app;
 import android.content.Context;
 
 import app.guitartext.dagger.scopes.ApplicationScope;
+import app.guitartext.model.fileInfo.FileInfoManager;
 import dagger.Module;
 import dagger.Provides;
 
@@ -27,5 +28,12 @@ public class ApplicationModule
 	public Context provideApplicationContext()
 	{
 		return context;
+	}
+
+	@ApplicationScope
+	@Provides
+	public FileInfoManager provideFileInfoManager()
+	{
+		return new FileInfoManager();
 	}
 }

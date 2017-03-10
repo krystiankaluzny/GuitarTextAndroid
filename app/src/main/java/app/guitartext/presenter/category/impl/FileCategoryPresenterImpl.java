@@ -10,15 +10,16 @@ import com.noveogroup.android.log.LoggerManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import app.guitartext.R;
-import app.guitartext.ui.browser.FileBrowserActivity;
-import app.guitartext.presenter.category.ExpendableListEntry;
-import app.guitartext.presenter.category.FileCategoryPresenter;
-import app.guitartext.ui.text.TextActivity;
-import app.guitartext.user.UserState;
 import app.guitartext.model.fileInfo.FileInfo;
 import app.guitartext.model.fileInfo.ParcelableFileInfoWrapper;
-import app.guitartext.model.fileInfo.UserFilesInfo;
+import app.guitartext.model.user.UserFilesInfo;
+import app.guitartext.presenter.category.ExpendableListEntry;
+import app.guitartext.presenter.category.FileCategoryPresenter;
+import app.guitartext.ui.browser.FileBrowserActivity;
+import app.guitartext.ui.text.TextActivity;
 
 /**
  * Created by obywatel on 03.03.2017.
@@ -30,16 +31,15 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 	private static final Logger logger = LoggerManager.getLogger();
 
 	private final UserFilesInfo userFilesInfo;
-	private final UserState userState;
 	private final Activity activity;
 
 	private List<FileCategoryEntry> fileCategoryEntryList;
 
-	public FileCategoryPresenterImpl(Activity activity, UserFilesInfo userFilesInfo, UserState userState)
+	@Inject
+	public FileCategoryPresenterImpl(Activity activity, UserFilesInfo userFilesInfo)
 	{
 		this.activity = activity;
 		this.userFilesInfo = userFilesInfo;
-		this.userState = userState;
 		fileCategoryEntryList = new ArrayList<>();
 
 		addBaseCategory();
@@ -85,7 +85,6 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 		if(subFileCategoryEntry == null) return;
 
 		FileInfo selectedFileInfo = subFileCategoryEntry.getFileInfo();
-		userState.setLastActiveFile(selectedFileInfo);
 
 		Intent intent;
 		if(selectedFileInfo.isDirectory())

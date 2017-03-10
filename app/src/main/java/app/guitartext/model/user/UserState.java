@@ -1,4 +1,4 @@
-package app.guitartext.user;
+package app.guitartext.model.user;
 
 import app.guitartext.model.fileInfo.FileInfo;
 

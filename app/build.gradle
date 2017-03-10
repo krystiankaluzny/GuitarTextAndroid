@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'me.tatarka.retrolambda'
 
 android {
     compileSdkVersion 25
@@ -19,9 +20,15 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+
+retrolambda {
+    javaVersion JavaVersion.VERSION_1_7
+    defaultMethods false
+    incremental true
 }
 
 dependencies {
@@ -42,6 +49,4 @@ dependencies {
     compile 'com.google.dagger:dagger:2.9'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
     provided 'javax.annotation:jsr250-api:1.0'
-    
-
 }

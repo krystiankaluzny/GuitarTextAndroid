@@ -1,9 +1,11 @@
-package app.guitartext.model.fileInfo;
+package app.guitartext.model.user;
 
 import android.support.annotation.NonNull;
 
 import java.util.Collections;
 import java.util.List;
+
+import app.guitartext.model.fileInfo.FileInfo;
 
 /**
  * Created by obywatel on 08.03.2017.

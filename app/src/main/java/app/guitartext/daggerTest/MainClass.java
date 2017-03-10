@@ -1,10 +1,5 @@
 package app.guitartext.daggerTest;
 
-import android.util.Log;
-
-import app.guitartext.daggerTest.businessModel.SchoolModule;
-import app.guitartext.daggerTest.businessModel.Town;
-
 /**
  * Created by obywatel on 05.03.2017.
  * Modified by

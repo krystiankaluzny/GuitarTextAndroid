@@ -1,9 +1,9 @@
 package app.guitartext.dagger.user;
 
 import app.guitartext.dagger.scopes.UserScope;
-import app.guitartext.model.fileInfo.RootUserFileInfo;
-import app.guitartext.model.fileInfo.UserFilesInfo;
-import app.guitartext.user.UserState;
+import app.guitartext.model.user.RootUserFileInfo;
+import app.guitartext.model.user.UserFilesInfo;
+import app.guitartext.model.user.UserState;
 import dagger.Module;
 import dagger.Provides;
 

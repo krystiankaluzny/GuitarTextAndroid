@@ -2,7 +2,7 @@ package app.guitartext.dagger.user;
 
 import app.guitartext.dagger.app.ApplicationComponent2;
 import app.guitartext.dagger.scopes.UserScope;
-import app.guitartext.model.fileInfo.UserFilesInfo;
+import app.guitartext.model.user.UserFilesInfo;
 import dagger.Component;
 
 /**

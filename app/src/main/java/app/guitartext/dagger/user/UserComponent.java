@@ -7,7 +7,7 @@ import app.guitartext.dagger.activity.CategoryComponent;
 import app.guitartext.dagger.activity.CategoryModule;
 import app.guitartext.dagger.activity.TextModule;
 import app.guitartext.dagger.activity.TextComponent;
-import app.guitartext.model.fileInfo.UserFilesInfo;
+import app.guitartext.model.user.UserFilesInfo;
 import dagger.Subcomponent;
 
 /**

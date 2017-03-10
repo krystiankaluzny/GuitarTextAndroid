@@ -1,5 +1,6 @@
-package app.guitartext.model.fileInfo;
+package app.guitartext.model.user;
 
+import app.guitartext.model.fileInfo.FileInfo;
 import app.guitartext.util.RandomString;
 
 import java.util.ArrayList;

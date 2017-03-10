@@ -1,12 +1,9 @@
 package app.guitartext.daggerTest;
 
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by obywatel on 05.03.2017.
