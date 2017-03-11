@@ -8,18 +8,19 @@ import com.google.common.collect.Lists;
 
 import java.io.File;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
 import javax.inject.Inject;
 
+import app.guitartext.model.fileInfo.FileInfo;
 import app.guitartext.model.fileInfo.FileInfoService;
-import app.guitartext.ui.browser.PathLayout;
+import app.guitartext.model.fileInfo.ParcelableFileInfoWrapper;
 import app.guitartext.presenter.browser.FileBrowserPresenter;
 import app.guitartext.presenter.browser.PathItem;
+import app.guitartext.ui.browser.PathLayout;
 import app.guitartext.ui.text.TextActivity;
-import app.guitartext.model.fileInfo.FileInfo;
-import app.guitartext.model.fileInfo.ParcelableFileInfoWrapper;
 
 /**
  * Created by obywatel on 08.03.2017.
@@ -29,6 +30,8 @@ import app.guitartext.model.fileInfo.ParcelableFileInfoWrapper;
 public class FileBrowserPresenterImpl implements FileBrowserPresenter, PathLayout.OnPathItemClickedListener
 {
 	private static final FileInfo ROOT_LOCATION = new FileInfo(0, true, "/", "/");
+	private static final FileInfoComparator FILE_INFO_COMPARATOR = new FileInfoComparator();
+
 	private final Activity activity;
 	private final FileInfo startFileLocation;
 	private final FileInfoService fileInfoService;
@@ -108,6 +111,7 @@ public class FileBrowserPresenterImpl implements FileBrowserPresenter, PathLayou
 	{
 		currentLocation = fileInfoService.getValidateDirectory(startLocation);
 		currentLocationContent = fileInfoService.getLocationContent(currentLocation);
+		Collections.sort(currentLocationContent, FILE_INFO_COMPARATOR);
 	}
 
 	private void updatePathChain()
@@ -115,6 +119,17 @@ public class FileBrowserPresenterImpl implements FileBrowserPresenter, PathLayou
 		List<FileInfo> fileInfoList = fileInfoService.getFileWithAncestors(currentLocation);
 
 		currentLocationChain = Lists.transform(fileInfoList, input -> new PathItem(input.getName(), input));
+	}
+
+	private static class FileInfoComparator implements Comparator<FileInfo>
+	{
+		@Override
+		public int compare(FileInfo o1, FileInfo o2)
+		{
+			if(o1.isDirectory() && !o2.isDirectory()) return -1;
+			if(!o1.isDirectory() && o2.isDirectory()) return 1;
+			return o1.getName().toLowerCase().compareTo(o2.getName().toLowerCase());
+		}
 	}
 
 }
