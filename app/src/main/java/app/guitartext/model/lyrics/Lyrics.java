@@ -17,4 +17,14 @@ public class Lyrics
 		this.lines = lines;
 		this.shift = shift;
 	}
+
+	public List<LyricLine> getLines()
+	{
+		return lines;
+	}
+
+	public int getShift()
+	{
+		return shift;
+	}
 }
