@@ -16,3 +16,4 @@
  13. Lyrics on fullscreen.
  14. Allow to remove files from category.
  15. Project description and screenshots.
+ 16. ~~Add app icon.~~
