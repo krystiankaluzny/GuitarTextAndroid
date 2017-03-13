@@ -1,11 +1,12 @@
 package app.guitartext.ui.browser;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,63 +14,90 @@ import java.util.List;
 import javax.inject.Inject;
 
 import app.guitartext.R;
-import app.guitartext.presenter.ListEntry;
-import app.guitartext.ui.ViewHolder;
 import app.guitartext.model.fileInfo.FileInfo;
+import app.guitartext.presenter.ListEntry;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by obywatel on 08.03.2017.
  * Modified by
  */
 
-public class FileBrowserAdapter extends ArrayAdapter<FileListEntry>
+public class FileBrowserAdapter extends RecyclerView.Adapter<FileBrowserAdapter.ViewHolder>
 {
+	private static final ListEntry EMPTY_ITEM = new ListEntry("", 0);
+
 	private final Context context;
+	private ArrayList<FileListEntry> fileListEntryList = new ArrayList<>();
+
+	public static class ViewHolder extends RecyclerView.ViewHolder
+	{
+		@BindView(R.id.textView) public TextView textView;
+		@BindView(R.id.imageView) public ImageView imageView;
+
+		public ViewHolder(View view)
+		{
+			super(view);
+			ButterKnife.bind(this, view);
+		}
+	}
 
 	@Inject
 	public FileBrowserAdapter(Context context)
 	{
-		super(context, 0);
 		this.context = context;
 	}
 
 	@Override
-	public View getView(int position, View convertView, @NonNull ViewGroup parent)
+	public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+	{
+		LayoutInflater inflater = LayoutInflater.from(context);
+		View rowView = inflater.inflate(R.layout.row_file_entry, parent, false);
+		return new ViewHolder(rowView);
+	}
+
+	@Override
+	public void onBindViewHolder(ViewHolder holder, int position)
 	{
 		ListEntry listEntry = getItem(position);
 
-		if(listEntry == null) return convertView;
+		holder.textView.setText(listEntry.getName());
+		holder.imageView.setImageResource(listEntry.getIconResourceId());
+	}
 
-		ViewHolder viewHolder;
+	@Override
+	public int getItemCount()
+	{
+		return fileListEntryList.size();
+	}
 
-		if(convertView == null)
-		{
-			LayoutInflater inflater = LayoutInflater.from(context);
-			convertView = inflater.inflate(R.layout.row_file_entry, parent, false);
-			viewHolder = new ViewHolder(convertView);
-			convertView.setTag(viewHolder);
-		}
-		else
-		{
-			viewHolder = (ViewHolder) convertView.getTag();
-		}
+	/**
+	 * Return EMPTY_ITEM if item given position not exist or is null.
+	 * It'a prevent {@link NullPointerException} and {@link IndexOutOfBoundsException}.
+	 *
+	 * @param position
+	 * @return valid {@link ListEntry} item or EMPTY_ITEM
+	 */
+	private ListEntry getItem(int position)
+	{
+		if(position < 0 || position >= getItemCount()) return EMPTY_ITEM;
+		ListEntry item = fileListEntryList.get(position);
 
-		viewHolder.textView.setText(listEntry.getName());
-		viewHolder.imageView.setImageResource(listEntry.getIconResourceId());
-
-		return convertView;
+		return item != null ? item : EMPTY_ITEM;
 	}
 
 	public void setData(List<FileInfo> fileInfoList)
 	{
-		List<FileListEntry> fileListEntryList = new ArrayList<>(fileInfoList.size());
+		fileListEntryList.clear();
+		fileListEntryList.ensureCapacity(fileInfoList.size());
+
 		for(FileInfo fileInfo : fileInfoList)
 		{
 			int resourceId = fileInfo.isDirectory() ? R.drawable.folder_base : R.drawable.file_base;
 			fileListEntryList.add(new FileListEntry(fileInfo, resourceId));
 		}
 
-		clear();
-		addAll(fileListEntryList);
+		notifyDataSetChanged();
 	}
 }

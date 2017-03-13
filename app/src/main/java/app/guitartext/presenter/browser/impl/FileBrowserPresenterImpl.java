@@ -104,7 +104,7 @@ public class FileBrowserPresenterImpl implements FileBrowserPresenter, PathLayou
 		browseLocation(location);
 		updatePathChain();
 
-		view.pathChanged(currentLocationChain, currentLocationContent);
+		view.onPathChanged(currentLocationChain, currentLocationContent);
 	}
 
 	private void browseLocation(FileInfo startLocation)

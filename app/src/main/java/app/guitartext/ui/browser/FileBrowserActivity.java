@@ -2,8 +2,9 @@ package app.guitartext.ui.browser;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.widget.ListView;
 
 import java.util.List;
 
@@ -23,14 +24,14 @@ import butterknife.OnItemClick;
 
 public class FileBrowserActivity extends AppCompatActivity implements FileBrowserPresenter.View, PathLayout.OnPathItemClickedListener
 {
-	@BindView(R.id.toolbar) Toolbar toolbar;
-	@BindView(R.id.file_list) ListView fileListView;
+	@BindView(R.id.file_list) RecyclerView fileRecycleView;
 	@BindView(R.id.path_layout) PathLayout pathLayout;
-
-	private FileBrowserComponent fileBrowserComponent;
 
 	@Inject FileBrowserPresenter fileBrowserPresenter;
 	@Inject FileBrowserAdapter fileBrowserAdapter;
+
+	private FileBrowserComponent fileBrowserComponent;
+	private RecyclerView.LayoutManager layoutManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -41,10 +42,11 @@ public class FileBrowserActivity extends AppCompatActivity implements FileBrowse
 
 		createComponent().inject(this);
 
-		setSupportActionBar(toolbar);
-
 		pathLayout.setOnPathItemClickedListener(this);
-		fileListView.setAdapter(fileBrowserAdapter);
+		layoutManager = new LinearLayoutManager(this);
+
+		fileRecycleView.setLayoutManager(layoutManager);
+		fileRecycleView.setAdapter(fileBrowserAdapter);
 
 		fileBrowserPresenter.fileSelected(fileBrowserComponent.startFileLocation());
 	}
@@ -59,11 +61,11 @@ public class FileBrowserActivity extends AppCompatActivity implements FileBrowse
 						this));
 	}
 
-	@OnItemClick(R.id.file_list)
-	public void onItemClick(int position)
-	{
-		fileBrowserPresenter.fileSelected(position);
-	}
+//	@OnItemClick(R.id.file_list)
+//	public void onItemClick(int position)
+//	{
+//		fileBrowserPresenter.fileSelected(position);
+//	}
 
 	@Override
 	public void onPathItemClicked(int position, PathItem pathItem)
@@ -72,7 +74,7 @@ public class FileBrowserActivity extends AppCompatActivity implements FileBrowse
 	}
 
 	@Override
-	public void pathChanged(List<PathItem> path, List<FileInfo> pathContent)
+	public void onPathChanged(List<PathItem> path, List<FileInfo> pathContent)
 	{
 		pathLayout.setPath(path);
 		fileBrowserAdapter.setData(pathContent);

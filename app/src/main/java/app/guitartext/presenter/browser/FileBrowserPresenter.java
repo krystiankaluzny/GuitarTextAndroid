@@ -17,6 +17,6 @@ public interface FileBrowserPresenter
 
 	interface View
 	{
-		void pathChanged(List<PathItem> path, List<FileInfo> pathContent);
+		void onPathChanged(List<PathItem> path, List<FileInfo> pathContent);
 	}
 }
