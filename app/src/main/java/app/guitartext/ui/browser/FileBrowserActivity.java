@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 
-public class FileBrowserActivity extends AppCompatActivity implements FileBrowserPresenter.View, PathLayout.OnPathItemClickedListener
+public class FileBrowserActivity extends AppCompatActivity implements FileBrowserPresenter.View, PathLayout.OnPathItemClickedListener, ItemClickSupport.OnItemClickListener
 {
 	@BindView(R.id.file_list) RecyclerView fileRecycleView;
 	@BindView(R.id.path_layout) PathLayout pathLayout;
@@ -48,6 +49,8 @@ public class FileBrowserActivity extends AppCompatActivity implements FileBrowse
 		fileRecycleView.setLayoutManager(layoutManager);
 		fileRecycleView.setAdapter(fileBrowserAdapter);
 
+		ItemClickSupport.addTo(fileRecycleView).setOnItemClickListener(this);
+
 		fileBrowserPresenter.fileSelected(fileBrowserComponent.startFileLocation());
 	}
 
@@ -61,11 +64,12 @@ public class FileBrowserActivity extends AppCompatActivity implements FileBrowse
 						this));
 	}
 
-//	@OnItemClick(R.id.file_list)
-//	public void onItemClick(int position)
-//	{
-//		fileBrowserPresenter.fileSelected(position);
-//	}
+	@Override
+	public void onPathChanged(List<PathItem> path, List<FileInfo> pathContent)
+	{
+		pathLayout.setPath(path);
+		fileBrowserAdapter.setData(pathContent);
+	}
 
 	@Override
 	public void onPathItemClicked(int position, PathItem pathItem)
@@ -74,9 +78,8 @@ public class FileBrowserActivity extends AppCompatActivity implements FileBrowse
 	}
 
 	@Override
-	public void onPathChanged(List<PathItem> path, List<FileInfo> pathContent)
+	public void onItemClicked(RecyclerView recyclerView, int position, View v)
 	{
-		pathLayout.setPath(path);
-		fileBrowserAdapter.setData(pathContent);
+		fileBrowserPresenter.fileSelected(position);
 	}
 }
