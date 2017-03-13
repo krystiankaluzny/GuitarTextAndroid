@@ -12,6 +12,8 @@ public interface TextPresenter
 {
 	void prepareFile(FileInfo fileInfo);
 
+	void onChordShiftGesture(float dX);
+
 	interface View
 	{
 		void onLyricsUpdated(Lyrics lyrics);

@@ -6,6 +6,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ExpandableListView;
 
+import com.noveogroup.android.log.Logger;
+import com.noveogroup.android.log.LoggerManager;
+
 import javax.inject.Inject;
 
 import app.guitartext.GuitarTextApplication;
@@ -19,6 +22,8 @@ import butterknife.ButterKnife;
 
 public class CategoryActivity extends AppCompatActivity implements ExpandableListView.OnGroupClickListener, ExpandableListView.OnChildClickListener
 {
+	private Logger logger  = LoggerManager.getLogger();
+
 	@BindView(R.id.toolbar) Toolbar toolbar;
 	@BindView(R.id.expendable_list_view) ExpandableListView expandableListView;
 

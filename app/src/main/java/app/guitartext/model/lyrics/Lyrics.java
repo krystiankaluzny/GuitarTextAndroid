@@ -15,7 +15,7 @@ public class Lyrics
 	public Lyrics(List<LyricLine> lines, int shift)
 	{
 		this.lines = lines;
-		this.shift = shift;
+		this.shift = ChordShifter.roundShift(shift);
 	}
 
 	public List<LyricLine> getLines()

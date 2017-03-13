@@ -31,4 +31,12 @@ public class TextPresenterImpl implements TextPresenter
 		lyrics = lyricsService.readLyrics(fileInfo);
 		view.onLyricsUpdated(lyrics);
 	}
+
+	@Override
+	public void onChordShiftGesture(float dX)
+	{
+		int shift = dX > 0 ? 1 : -1;
+		lyrics = lyricsService.shiftChordsBy(lyrics, shift);
+		view.onLyricsUpdated(lyrics);
+	}
 }

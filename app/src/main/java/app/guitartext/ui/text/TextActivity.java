@@ -2,6 +2,7 @@ package app.guitartext.ui.text;
 
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
@@ -36,6 +37,7 @@ public class TextActivity extends AppCompatActivity implements TextPresenter.Vie
 	@Inject TextPresenter textPresenter;
 
 	private ScaleGestureDetector scaleGestureDetector;
+	private GestureDetectorCompat gestureDetectorCompat;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -49,6 +51,8 @@ public class TextActivity extends AppCompatActivity implements TextPresenter.Vie
 		setSupportActionBar(toolbar);
 
 		scaleGestureDetector = new ScaleGestureDetector(this, new TextViewOnScaleGestureListener(textView));
+		gestureDetectorCompat = new GestureDetectorCompat(this, new ChordShiftGestureListener(textPresenter));
+
 		textPresenter.prepareFile(ParcelableFileInfoWrapper.fromIntent(getIntent()));
 	}
 
@@ -76,7 +80,7 @@ public class TextActivity extends AppCompatActivity implements TextPresenter.Vie
 				stringBuilder.append(element.getText());
 				int end = stringBuilder.length();
 
-				if(TextElementType.CHORD.equals(t))
+				if(TextElementType.CHORDS.equals(t))
 				{
 					stringBuilder.setSpan(new ForegroundColorSpan(ContextCompat.getColor(this, R.color.chord)),
 							start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -98,6 +102,7 @@ public class TextActivity extends AppCompatActivity implements TextPresenter.Vie
 	public boolean dispatchTouchEvent(MotionEvent event)
 	{
 		scaleGestureDetector.onTouchEvent(event);
+		gestureDetectorCompat.onTouchEvent(event);
 		return super.dispatchTouchEvent(event);
 	}
 }

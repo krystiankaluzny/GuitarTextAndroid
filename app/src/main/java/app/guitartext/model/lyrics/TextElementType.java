@@ -8,6 +8,6 @@ package app.guitartext.model.lyrics;
 public enum TextElementType
 {
 	TEXT,
-	CHORD,
+	CHORDS,
 	BRACKET
 }

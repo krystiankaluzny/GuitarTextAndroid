@@ -16,14 +16,25 @@ public class TextElement
 		this.textElementType = textElementType;
 	}
 
+
+	public static TextElement asChord(String chord)
+	{
+		return new TextElement(chord, TextElementType.CHORDS);
+	}
+
+	public static TextElement asText(String text)
+	{
+		return new TextElement(text, TextElementType.TEXT);
+	}
+
+	public static TextElement asBracket(String bracket)
+	{
+		return new TextElement(bracket, TextElementType.BRACKET);
+	}
+
 	public TextElementType getTextElementType()
 	{
 		return textElementType;
-	}
-
-	public void setText(String text)
-	{
-		this.text = text;
 	}
 
 	public String getText()

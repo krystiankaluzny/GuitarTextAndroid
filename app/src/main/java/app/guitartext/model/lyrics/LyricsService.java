@@ -86,41 +86,28 @@ public class LyricsService
 		return lyricLineBuilder.build();
 	}
 
-	private class LyricLineBuilder
+	public Lyrics shiftChordsBy(Lyrics lyrics, int shift)
 	{
-		List<TextElement> textElementList = new ArrayList<>();
-
-		final String line;
-
-		private LyricLineBuilder(String line)
+		List<LyricLine> lines = new ArrayList<>(lyrics.getLines().size());
+		for(LyricLine lyricLine : lyrics.getLines())
 		{
-			this.line = line;
+			List<TextElement> textElementList = new ArrayList<>(lyricLine.getTextElements().size());
+
+			for(TextElement textElement : lyricLine.getTextElements())
+			{
+				if(TextElementType.CHORDS.equals(textElement.getTextElementType()))
+				{
+					textElementList.add(TextElement.asChord(ChordShifter.shift(textElement.getText(), shift)));
+				}
+				else
+				{
+					textElementList.add(textElement);
+				}
+			}
+
+			lines.add(new LyricLine(textElementList));
 		}
 
-		void addText(int start, int end)
-		{
-			add(start, end, TextElementType.TEXT);
-		}
-
-		void addBracket(int position)
-		{
-			add(position, position + 1, TextElementType.BRACKET);
-		}
-
-		void addChord(int start, int end)
-		{
-			add(start, end, TextElementType.CHORD);
-		}
-
-		void add(int start, int end, TextElementType type)
-		{
-			TextElement textElement = new TextElement(line.substring(start, end), type);
-			textElementList.add(textElement);
-		}
-
-		LyricLine build()
-		{
-			return new LyricLine(textElementList);
-		}
+		return new Lyrics(lines, lyrics.getShift() + shift);
 	}
 }
