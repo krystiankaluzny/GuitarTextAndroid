@@ -8,6 +8,11 @@ import app.guitartext.R;
 /**
  * Created by obywatel on 13.03.2017.
  * Modified by
+ * <p>
+ * Thanks for Hugo Visser
+ * http://www.littlerobots.nl/blog/Handle-Android-RecyclerView-Clicks/
+ * Hugo usage note:
+ * <em>This code can be used freely, if you need to show your legal dept something, send them to http://unlicense.org/ </em>
  */
 
 public class ItemClickSupport
