@@ -21,7 +21,7 @@
 			android:layout_height="wrap_content"
 			android:fitsSystemWindows="true"
 			app:contentScrim="?attr/colorPrimary"
-			app:layout_scrollFlags="scroll|enterAlways">
+			app:layout_scrollFlags="scroll|snap|enterAlways">
 
 			<app.guitartext.ui.browser.PathLayout
 				android:id="@+id/path_layout"
