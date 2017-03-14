@@ -7,7 +7,7 @@
  4. ~~Sort files and directories.~~
  5. Use appropriate icons on category screen.
  6. Go previous visited directory by clicking back button.
- 7. Integration of PathView with AppBar.
+ 7. ~~Integration of PathView with AppBar.~~
  8. Smaller buttons on PathView.
  9. ~~Chords shifting.~~
  10. Save user preference to local db via some ORM.
