@@ -1,10 +1,11 @@
 package app.guitartext.ui.browser;
 
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import java.util.List;
@@ -15,18 +16,18 @@ import app.guitartext.GuitarTextApplication;
 import app.guitartext.R;
 import app.guitartext.dagger.activity.FileBrowserComponent;
 import app.guitartext.dagger.activity.FileBrowserModule;
-import app.guitartext.presenter.browser.FileBrowserPresenter;
-import app.guitartext.presenter.browser.PathItem;
 import app.guitartext.model.fileInfo.FileInfo;
 import app.guitartext.model.fileInfo.ParcelableFileInfoWrapper;
+import app.guitartext.presenter.browser.FileBrowserPresenter;
+import app.guitartext.presenter.browser.PathItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnItemClick;
 
 public class FileBrowserActivity extends AppCompatActivity implements FileBrowserPresenter.View, PathLayout.OnPathItemClickedListener, ItemClickSupport.OnItemClickListener
 {
 	@BindView(R.id.file_list) RecyclerView fileRecycleView;
 	@BindView(R.id.path_layout) PathLayout pathLayout;
+	@BindView(R.id.app_bar) AppBarLayout appBarLayout;
 
 	@Inject FileBrowserPresenter fileBrowserPresenter;
 	@Inject FileBrowserAdapter fileBrowserAdapter;
@@ -69,6 +70,8 @@ public class FileBrowserActivity extends AppCompatActivity implements FileBrowse
 	{
 		pathLayout.setPath(path);
 		fileBrowserAdapter.setData(pathContent);
+		appBarLayout.setExpanded(true);
+		fileRecycleView.scrollToPosition(0);
 	}
 
 	@Override
