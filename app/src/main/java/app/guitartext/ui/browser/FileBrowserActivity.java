@@ -3,6 +3,7 @@ package app.guitartext.ui.browser;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -43,13 +44,7 @@ public class FileBrowserActivity extends AppCompatActivity implements FileBrowse
 
 		createComponent().inject(this);
 
-		pathLayout.setOnPathItemClickedListener(this);
-		layoutManager = new LinearLayoutManager(this);
-
-		fileRecycleView.setLayoutManager(layoutManager);
-		fileRecycleView.setAdapter(fileBrowserAdapter);
-
-		ItemClickSupport.addTo(fileRecycleView).setOnItemClickListener(this);
+		viewInit();
 
 		fileBrowserPresenter.fileSelected(fileBrowserComponent.startFileLocation());
 	}
@@ -62,6 +57,20 @@ public class FileBrowserActivity extends AppCompatActivity implements FileBrowse
 						this,
 						ParcelableFileInfoWrapper.fromIntent(getIntent()),
 						this));
+	}
+
+	private void viewInit()
+	{
+		pathLayout.setOnPathItemClickedListener(this);
+		layoutManager = new LinearLayoutManager(this);
+
+		fileRecycleView.setLayoutManager(layoutManager);
+		fileRecycleView.setAdapter(fileBrowserAdapter);
+
+		ItemClickSupport.addTo(fileRecycleView).setOnItemClickListener(this);
+
+		DividerItemDecoration dividerDecoration = new DividerItemDecoration(getBaseContext(), DividerItemDecoration.VERTICAL);
+		fileRecycleView.addItemDecoration(dividerDecoration);
 	}
 
 	@Override
