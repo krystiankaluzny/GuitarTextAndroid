@@ -102,7 +102,7 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 
 	private void addBaseCategory()
 	{
-		FileCategoryEntry baseCategory = new FileCategoryEntry(activity.getResources().getString(R.string.category_base), android.R.drawable.btn_radio);
+		FileCategoryEntry baseCategory = new FileCategoryEntry(activity.getResources().getString(R.string.category_base), R.drawable.abs_base);
 		addSubEntryToCategory(baseCategory, userFilesInfo.getBaseFiles());
 
 		fileCategoryEntryList.add(baseCategory);
@@ -110,7 +110,7 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 
 	private void addFavouritesCategory()
 	{
-		FileCategoryEntry favouritesCategory = new FileCategoryEntry(activity.getResources().getString(R.string.category_favourite), android.R.drawable.btn_star);
+		FileCategoryEntry favouritesCategory = new FileCategoryEntry(activity.getResources().getString(R.string.category_favourite), R.drawable.abs_favourite);
 		addSubEntryToCategory(favouritesCategory, userFilesInfo.getFavouriteFiles());
 
 		fileCategoryEntryList.add(favouritesCategory);
@@ -118,7 +118,7 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 
 	private void addRecentCategory()
 	{
-		FileCategoryEntry recentCategory = new FileCategoryEntry(activity.getResources().getString(R.string.category_recent), android.R.drawable.btn_star_big_off);
+		FileCategoryEntry recentCategory = new FileCategoryEntry(activity.getResources().getString(R.string.category_recent), R.drawable.abs_recent);
 		addSubEntryToCategory(recentCategory, userFilesInfo.getRecentOpenedFiles());
 
 		fileCategoryEntryList.add(recentCategory);
@@ -131,7 +131,7 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 			fileCategoryEntry.addFileEntry(
 					new SubFileCategoryEntry(
 							fileInfo,
-							fileInfo.isDirectory() ? R.drawable.folder_base : R.drawable.file_base)
+							fileInfo.isDirectory() ? R.drawable.abs_folder : R.drawable.abs_file)
 			);
 		}
 	}

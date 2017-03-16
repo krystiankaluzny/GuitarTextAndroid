@@ -94,7 +94,7 @@ public class FileBrowserAdapter extends RecyclerView.Adapter<FileBrowserAdapter.
 
 		for(FileInfo fileInfo : fileInfoList)
 		{
-			int resourceId = fileInfo.isDirectory() ? R.drawable.folder_base : R.drawable.file_base;
+			int resourceId = fileInfo.isDirectory() ? R.drawable.abs_folder : R.drawable.abs_file;
 			fileListEntryList.add(new FileListEntry(fileInfo, resourceId));
 		}
 

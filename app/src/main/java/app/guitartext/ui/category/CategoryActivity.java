@@ -27,10 +27,10 @@ public class CategoryActivity extends AppCompatActivity implements ExpandableLis
 	@BindView(R.id.toolbar) Toolbar toolbar;
 	@BindView(R.id.expendable_list_view) ExpandableListView expandableListView;
 
-	private CategoryComponent categoryComponent;
-
 	@Inject FileCategoryPresenter fileCategoryPresenter;
 	@Inject CategoryExpendableListAdapter categoryExpendableListAdapter;
+
+	private CategoryComponent categoryComponent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
