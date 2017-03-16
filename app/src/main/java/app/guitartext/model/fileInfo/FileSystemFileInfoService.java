@@ -26,6 +26,7 @@ public class FileSystemFileInfoService implements FileInfoService
 	private static final Logger logger = LoggerManager.getLogger();
 
 	private static final FileInfo ROOT_LOCATION = new FileInfo(0, true, "/", "/");
+	private static final String HIDDEN_FILE_PREFIX = ".";
 
 	@Inject
 	public FileSystemFileInfoService()
@@ -74,6 +75,7 @@ public class FileSystemFileInfoService implements FileInfoService
 		int i = 0;
 		for(File subFile : subFiles)
 		{
+			if(subFile.getName().startsWith(HIDDEN_FILE_PREFIX)) continue;
 			locationContent.add(createFileInfo(i, subFile));
 			i++;
 		}
