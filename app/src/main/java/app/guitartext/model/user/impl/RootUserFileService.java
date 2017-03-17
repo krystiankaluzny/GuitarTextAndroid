@@ -35,4 +35,10 @@ public class RootUserFileService implements UserFileService
 	{
 		return Collections.emptyList();
 	}
+
+	@Override
+	public void addBase(FileInfo fileInfo)
+	{
+
+	}
 }

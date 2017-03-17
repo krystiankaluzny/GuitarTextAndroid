@@ -2,6 +2,7 @@ package app.guitartext.ui.browser;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,7 +24,7 @@ import app.guitartext.presenter.browser.PathItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FileBrowserActivity extends AppCompatActivity implements FileBrowserPresenter.View, PathLayout.OnPathItemClickedListener, ItemClickSupport.OnItemClickListener
+public class FileBrowserActivity extends AppCompatActivity implements FileBrowserPresenter.View, PathLayout.OnPathItemClickedListener, ItemClickSupport.OnItemClickListener, ItemClickSupport.OnItemLongClickListener
 {
 	@BindView(R.id.file_list) RecyclerView fileRecycleView;
 	@BindView(R.id.path_layout) PathLayout pathLayout;
@@ -35,6 +36,7 @@ public class FileBrowserActivity extends AppCompatActivity implements FileBrowse
 	private FileBrowserComponent fileBrowserComponent;
 	private RecyclerView.LayoutManager layoutManager;
 
+	private AlertDialog addToBaseFileDialog = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -47,6 +49,13 @@ public class FileBrowserActivity extends AppCompatActivity implements FileBrowse
 		viewInit();
 
 		fileBrowserPresenter.fileSelected(fileBrowserComponent.startFileLocation());
+	}
+
+	@Override
+	protected void onDestroy()
+	{
+		closeAddToBaseDialog();
+		super.onDestroy();
 	}
 
 	private FileBrowserComponent createComponent()
@@ -67,7 +76,9 @@ public class FileBrowserActivity extends AppCompatActivity implements FileBrowse
 		fileRecycleView.setLayoutManager(layoutManager);
 		fileRecycleView.setAdapter(fileBrowserAdapter);
 
-		ItemClickSupport.addTo(fileRecycleView).setOnItemClickListener(this);
+		ItemClickSupport.addTo(fileRecycleView)
+				.setOnItemClickListener(this)
+				.setOnItemLongClickListener(this);
 
 		DividerItemDecoration dividerDecoration = new DividerItemDecoration(getBaseContext(), DividerItemDecoration.VERTICAL);
 		fileRecycleView.addItemDecoration(dividerDecoration);
@@ -92,5 +103,26 @@ public class FileBrowserActivity extends AppCompatActivity implements FileBrowse
 	public void onItemClicked(RecyclerView recyclerView, int position, View v)
 	{
 		fileBrowserPresenter.fileSelected(position);
+	}
+
+	@Override
+	public boolean onItemLongClicked(RecyclerView recyclerView, int position, View v)
+	{
+		closeAddToBaseDialog();
+
+		AlertDialog.Builder dialogAlert = new AlertDialog.Builder(this);
+		dialogAlert.setTitle(R.string.add_to_base);
+
+		dialogAlert.setPositiveButton(R.string.ok, (dialog, which) -> fileBrowserPresenter.addBaseFile(position));
+		addToBaseFileDialog = dialogAlert.show();
+		return false;
+	}
+
+	private void closeAddToBaseDialog()
+	{
+		if(addToBaseFileDialog != null && addToBaseFileDialog.isShowing())
+			addToBaseFileDialog.dismiss();
+
+		addToBaseFileDialog = null;
 	}
 }

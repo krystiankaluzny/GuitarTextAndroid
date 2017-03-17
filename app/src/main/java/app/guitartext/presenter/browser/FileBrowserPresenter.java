@@ -15,6 +15,8 @@ public interface FileBrowserPresenter
 
 	void fileSelected(FileInfo fileInfo);
 
+	void addBaseFile(int filePosition);
+	
 	interface View
 	{
 		void onPathChanged(List<PathItem> path, List<FileInfo> pathContent);

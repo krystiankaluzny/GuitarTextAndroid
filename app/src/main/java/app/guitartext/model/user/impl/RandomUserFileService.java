@@ -46,6 +46,12 @@ public class RandomUserFileService implements UserFileService
 		return recentList;
 	}
 
+	@Override
+	public void addBase(FileInfo fileInfo)
+	{
+
+	}
+
 	private void fillRandom(List<FileInfo> list, int size)
 	{
 		for(int i = 0; i < size; i++)

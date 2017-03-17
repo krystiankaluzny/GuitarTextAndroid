@@ -69,6 +69,26 @@ public class MainUserFileService implements UserFileService
 		return recentList;
 	}
 
+	@Override
+	public void addBase(FileInfo fileInfo)
+	{
+		if(fileInfo == null)
+		{
+			logger.e("fileInfo is null");
+			return;
+		}
+		BaseFile baseFile = new BaseFile(currentUser, fileInfo.getPath(), fileInfo.isDirectory());
+
+		try
+		{
+			baseFileDao.create(baseFile);
+			baseList.add(fileInfo);
+		} catch(SQLException e)
+		{
+			logger.e(e);
+		}
+	}
+
 	private void getBaseFileList()
 	{
 		List<BaseFile> baseFiles = new ArrayList<>();

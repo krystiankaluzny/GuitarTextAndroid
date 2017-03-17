@@ -18,4 +18,6 @@ public interface UserFileService
 	@NonNull List<FileInfo> getFavouriteFiles();
 
 	@NonNull List<FileInfo> getRecentOpenedFiles();
+
+	void addBase(FileInfo fileInfo);
 }

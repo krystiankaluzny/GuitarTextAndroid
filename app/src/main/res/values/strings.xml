@@ -94,4 +94,6 @@
 	<string name="category_base">Base</string>
 	<string name="category_favourite">Favourite</string>
 	<string name="category_recent">Recent</string>
+	<string name="ok">OK</string>
+	<string name="add_to_base">Add to Base category</string>
 </resources>
