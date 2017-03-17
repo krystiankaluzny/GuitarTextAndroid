@@ -3,6 +3,8 @@ package app.guitartext.dagger.app;
 import android.content.Context;
 
 import app.guitartext.dagger.scopes.ApplicationScope;
+import app.guitartext.db.dao.DaoFactory;
+import app.guitartext.db.dao.DaoSqliteHelper;
 import app.guitartext.model.fileInfo.FileInfoService;
 import app.guitartext.model.fileInfo.FileSystemFileInfoService;
 import app.guitartext.model.lyrics.LyricsService;
@@ -43,5 +45,12 @@ public class ApplicationModule
 	public LyricsService provideLyricsService(FileInfoService fileInfoService)
 	{
 		return new LyricsService(fileInfoService);
+	}
+
+	@ApplicationScope
+	@Provides
+	public DaoFactory provideDaoFactory(DaoSqliteHelper factoryImpl)
+	{
+		return factoryImpl;
 	}
 }
