@@ -38,7 +38,7 @@ public class DaoSqliteHelper extends OrmLiteSqliteOpenHelper implements DaoFacto
 	public void onCreate(SQLiteDatabase database, ConnectionSource connectionSource)
 	{
 		logger.d("DaoSqliteHelper.onCreate");
-		for(Class<?> tableClass: databaseSchemaInfo.getTables())
+		for(Class<?> tableClass : databaseSchemaInfo.getTables())
 		{
 			try
 			{
@@ -54,11 +54,11 @@ public class DaoSqliteHelper extends OrmLiteSqliteOpenHelper implements DaoFacto
 	public void onUpgrade(SQLiteDatabase database, ConnectionSource connectionSource, int oldVersion, int newVersion)
 	{
 		logger.d("DaoSqliteHelper.onUpgrade");
-		for(Class<?> tableClass: databaseSchemaInfo.getTables())
+		for(Class<?> tableClass : databaseSchemaInfo.getTables())
 		{
 			try
 			{
-				TableUtils.dropTable(connectionSource, tableClass, false);
+				TableUtils.dropTable(connectionSource, tableClass, true);
 			} catch(SQLException e)
 			{
 				logger.e(e);
@@ -74,7 +74,7 @@ public class DaoSqliteHelper extends OrmLiteSqliteOpenHelper implements DaoFacto
 		D dao = null;
 		try
 		{
-			dao =  super.getDao(clazz);
+			dao = super.getDao(clazz);
 		} catch(SQLException e)
 		{
 			logger.e(e);

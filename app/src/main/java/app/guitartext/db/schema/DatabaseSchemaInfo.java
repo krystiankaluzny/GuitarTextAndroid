@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import app.guitartext.db.schema.tables.BaseFile;
+import app.guitartext.db.schema.tables.OpenedFile;
 import app.guitartext.db.schema.tables.Preferences;
 import app.guitartext.db.schema.tables.User;
 
@@ -17,14 +19,14 @@ import app.guitartext.db.schema.tables.User;
 public class DatabaseSchemaInfo
 {
 	private static final String DATABASE_NAME = "guitar_text.db";
-	private static final int DATABASE_VERSION = 1;
+	private static final int DATABASE_VERSION = 2;
 
 	private List<Class<?>> tables;
 
 	@Inject
 	public DatabaseSchemaInfo()
 	{
-		tables = ImmutableList.of(User.class, Preferences.class);
+		tables = ImmutableList.of(User.class, Preferences.class, OpenedFile.class, BaseFile.class);
 	}
 
 	public String getDatabaseName()
