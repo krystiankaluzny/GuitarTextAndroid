@@ -3,6 +3,7 @@ package app.guitartext.dagger.app;
 import android.content.Context;
 
 import app.guitartext.dagger.scopes.ApplicationScope;
+import app.guitartext.db.dao.DaoFactory;
 import dagger.Component;
 
 /**
@@ -15,4 +16,6 @@ import dagger.Component;
 public interface ApplicationComponent2
 {
 	Context appContext();
+
+	DaoFactory daoFactory();
 }

@@ -11,7 +11,7 @@ import app.guitartext.model.fileInfo.FileInfo;
  * Modified by
  */
 
-public interface UserFilesInfo
+public interface UserFileService
 {
 	@NonNull List<FileInfo> getBaseFiles();
 

@@ -11,7 +11,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable
 public class OpenedFile extends BaseTable
 {
-	@DatabaseField(foreign=true, columnName="user_id")
+	@DatabaseField(foreign=true, columnName=User.FOREIGN_ID)
 	private User user;
 
 	@DatabaseField

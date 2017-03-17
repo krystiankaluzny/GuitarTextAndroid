@@ -1,6 +1,7 @@
-package app.guitartext.model.user;
+package app.guitartext.model.user.impl;
 
 import app.guitartext.model.fileInfo.FileInfo;
+import app.guitartext.model.user.UserFileService;
 import app.guitartext.util.RandomString;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.Random;
  * Modified by
  */
 
-public class RandomUserFilesInfo implements UserFilesInfo
+public class RandomUserFileService implements UserFileService
 {
 	private List<FileInfo> baseList = new ArrayList<>();
 	private List<FileInfo> favouriteList = new ArrayList<>();
@@ -20,7 +21,7 @@ public class RandomUserFilesInfo implements UserFilesInfo
 
 	private static final Random random = new Random();
 
-	public RandomUserFilesInfo()
+	public RandomUserFileService()
 	{
 		fillRandom(baseList, random.nextInt(5) + 1);
 		fillRandom(favouriteList, random.nextInt(10) + 1);

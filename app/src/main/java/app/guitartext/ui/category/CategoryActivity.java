@@ -32,10 +32,6 @@ public class CategoryActivity extends AppCompatActivity implements ExpandableLis
 	@Inject FileCategoryPresenter fileCategoryPresenter;
 	@Inject CategoryExpendableListAdapter categoryExpendableListAdapter;
 
-	@Inject
-	@Named(value = "defaultUser")
-	User user;
-
 	private CategoryComponent categoryComponent;
 
 	@Override

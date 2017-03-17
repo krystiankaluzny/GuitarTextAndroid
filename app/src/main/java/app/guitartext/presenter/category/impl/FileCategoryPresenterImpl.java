@@ -15,7 +15,7 @@ import javax.inject.Inject;
 import app.guitartext.R;
 import app.guitartext.model.fileInfo.FileInfo;
 import app.guitartext.model.fileInfo.ParcelableFileInfoWrapper;
-import app.guitartext.model.user.UserFilesInfo;
+import app.guitartext.model.user.UserFileService;
 import app.guitartext.presenter.category.ExpendableListEntry;
 import app.guitartext.presenter.category.FileCategoryPresenter;
 import app.guitartext.ui.browser.FileBrowserActivity;
@@ -30,16 +30,16 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 {
 	private static final Logger logger = LoggerManager.getLogger();
 
-	private final UserFilesInfo userFilesInfo;
+	private final UserFileService userFileService;
 	private final Activity activity;
 
 	private List<FileCategoryEntry> fileCategoryEntryList;
 
 	@Inject
-	public FileCategoryPresenterImpl(Activity activity, UserFilesInfo userFilesInfo)
+	public FileCategoryPresenterImpl(Activity activity, UserFileService userFileService)
 	{
 		this.activity = activity;
-		this.userFilesInfo = userFilesInfo;
+		this.userFileService = userFileService;
 		fileCategoryEntryList = new ArrayList<>();
 
 		addBaseCategory();
@@ -103,7 +103,7 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 	private void addBaseCategory()
 	{
 		FileCategoryEntry baseCategory = new FileCategoryEntry(activity.getResources().getString(R.string.category_base), R.drawable.abs_base);
-		addSubEntryToCategory(baseCategory, userFilesInfo.getBaseFiles());
+		addSubEntryToCategory(baseCategory, userFileService.getBaseFiles());
 
 		fileCategoryEntryList.add(baseCategory);
 	}
@@ -111,7 +111,7 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 	private void addFavouritesCategory()
 	{
 		FileCategoryEntry favouritesCategory = new FileCategoryEntry(activity.getResources().getString(R.string.category_favourite), R.drawable.abs_favourite);
-		addSubEntryToCategory(favouritesCategory, userFilesInfo.getFavouriteFiles());
+		addSubEntryToCategory(favouritesCategory, userFileService.getFavouriteFiles());
 
 		fileCategoryEntryList.add(favouritesCategory);
 	}
@@ -119,7 +119,7 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 	private void addRecentCategory()
 	{
 		FileCategoryEntry recentCategory = new FileCategoryEntry(activity.getResources().getString(R.string.category_recent), R.drawable.abs_recent);
-		addSubEntryToCategory(recentCategory, userFilesInfo.getRecentOpenedFiles());
+		addSubEntryToCategory(recentCategory, userFileService.getRecentOpenedFiles());
 
 		fileCategoryEntryList.add(recentCategory);
 	}

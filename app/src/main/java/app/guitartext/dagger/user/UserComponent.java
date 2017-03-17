@@ -7,7 +7,7 @@ import app.guitartext.dagger.activity.CategoryComponent;
 import app.guitartext.dagger.activity.CategoryModule;
 import app.guitartext.dagger.activity.TextModule;
 import app.guitartext.dagger.activity.TextComponent;
-import app.guitartext.model.user.UserFilesInfo;
+import app.guitartext.model.user.UserFileService;
 import dagger.Subcomponent;
 
 /**
@@ -16,10 +16,10 @@ import dagger.Subcomponent;
  */
 
 @UserScope
-@Subcomponent(modules = UserModule.class)
+@Subcomponent(modules = {UserModule.class, UserDaoModule.class})
 public interface UserComponent
 {
-	UserFilesInfo userFilesInfo();
+	UserFileService userFilesInfo();
 
 	CategoryComponent plus(CategoryModule categoryModule);
 

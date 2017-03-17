@@ -2,7 +2,7 @@ package app.guitartext.dagger.user;
 
 import app.guitartext.dagger.app.ApplicationComponent2;
 import app.guitartext.dagger.scopes.UserScope;
-import app.guitartext.model.user.UserFilesInfo;
+import app.guitartext.model.user.UserFileService;
 import dagger.Component;
 
 /**
@@ -11,8 +11,8 @@ import dagger.Component;
  */
 
 @UserScope
-@Component(dependencies = ApplicationComponent2.class, modules = UserModule.class)
+@Component(dependencies = ApplicationComponent2.class, modules = { UserModule.class, UserDaoModule.class } )
 public interface UserComponent2
 {
-	UserFilesInfo userFilesInfo();
+	UserFileService userFilesInfo();
 }
