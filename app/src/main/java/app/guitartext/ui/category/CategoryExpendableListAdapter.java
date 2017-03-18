@@ -6,12 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import app.guitartext.R;
 import app.guitartext.presenter.category.ExpendableListEntry;
-import app.guitartext.ui.ViewHolder;
+import app.guitartext.presenter.category.FileCategoryEntry;
 import app.guitartext.presenter.category.FileCategoryPresenter;
+import app.guitartext.presenter.category.SubFileCategoryEntry;
+import app.guitartext.ui.ViewHolder;
 
 /**
  * Created by obywatel on 03.03.2017.
@@ -22,6 +26,7 @@ public class CategoryExpendableListAdapter extends BaseExpandableListAdapter
 {
 	private final Context context;
 	private final FileCategoryPresenter fileCategoryPresenter;
+	private List<FileCategoryEntry> categoryEntryList;
 
 	@Inject
 	public CategoryExpendableListAdapter(Context context, FileCategoryPresenter fileCategoryPresenter)
@@ -33,25 +38,33 @@ public class CategoryExpendableListAdapter extends BaseExpandableListAdapter
 	@Override
 	public int getGroupCount()
 	{
-		return fileCategoryPresenter.getCategoryCount();
+		return categoryEntryList == null ? 0 : categoryEntryList.size();
 	}
 
 	@Override
 	public int getChildrenCount(int groupPosition)
 	{
-		return fileCategoryPresenter.getSubCategoryCount(groupPosition);
+		if(categoryEntryList == null) return 0;
+		if(groupPosition < 0 || groupPosition >= categoryEntryList.size()) return 0;
+		return categoryEntryList.get(groupPosition).getSubFileCategoryEntryList().size();
 	}
 
 	@Override
 	public Object getGroup(int groupPosition)
 	{
-		return fileCategoryPresenter.getSubCategoryCount(groupPosition);
+		if(groupPosition < 0 || groupPosition >= categoryEntryList.size())
+			return null;
+
+		return categoryEntryList.get(groupPosition);
 	}
 
 	@Override
 	public Object getChild(int groupPosition, int childPosition)
 	{
-		return fileCategoryPresenter.getSubCategoryEntry(groupPosition, childPosition);
+		if(groupPosition < 0 || groupPosition >= categoryEntryList.size()) return null;
+		List<SubFileCategoryEntry> subCategories = categoryEntryList.get(groupPosition).getSubFileCategoryEntryList();
+		if(childPosition < 0 || childPosition >= subCategories.size()) return null;
+		return subCategories.get(childPosition);
 	}
 
 	@Override
@@ -75,7 +88,7 @@ public class CategoryExpendableListAdapter extends BaseExpandableListAdapter
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent)
 	{
-		ExpendableListEntry groupEntry = fileCategoryPresenter.getCategoryEntry(groupPosition);
+		ExpendableListEntry groupEntry = (ExpendableListEntry) getGroup(groupPosition);
 
 		if(groupEntry == null) return convertView;
 
@@ -101,7 +114,7 @@ public class CategoryExpendableListAdapter extends BaseExpandableListAdapter
 	@Override
 	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent)
 	{
-		ExpendableListEntry childEntry = fileCategoryPresenter.getSubCategoryEntry(groupPosition, childPosition);
+		ExpendableListEntry childEntry = (ExpendableListEntry) getChild(groupPosition, childPosition);
 
 		if(childEntry == null) return convertView;
 
@@ -129,6 +142,12 @@ public class CategoryExpendableListAdapter extends BaseExpandableListAdapter
 	public boolean isChildSelectable(int groupPosition, int childPosition)
 	{
 		return true;
+	}
+
+	public void setData(List<FileCategoryEntry> categoryEntryList)
+	{
+		this.categoryEntryList = categoryEntryList;
+		notifyDataSetChanged();
 	}
 
 	static class GroupViewHolder extends ViewHolder

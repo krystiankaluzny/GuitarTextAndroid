@@ -17,10 +17,12 @@ import dagger.Provides;
 public class CategoryModule
 {
 	private final Activity activity;
+	private final FileCategoryPresenter.View view;
 
-	public CategoryModule(Activity activity)
+	public CategoryModule(Activity activity, FileCategoryPresenter.View view)
 	{
 		this.activity = activity;
+		this.view = view;
 	}
 
 	@ActivityScope
@@ -28,6 +30,13 @@ public class CategoryModule
 	public Activity provideActivity()
 	{
 		return activity;
+	}
+
+	@ActivityScope
+	@Provides
+	public FileCategoryPresenter.View provideView()
+	{
+		return view;
 	}
 
 	@ActivityScope

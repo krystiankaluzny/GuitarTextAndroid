@@ -1,4 +1,4 @@
-package app.guitartext.presenter.category.impl;
+package app.guitartext.presenter.category;
 
 import app.guitartext.presenter.category.ExpendableListEntry;
 import app.guitartext.model.fileInfo.FileInfo;

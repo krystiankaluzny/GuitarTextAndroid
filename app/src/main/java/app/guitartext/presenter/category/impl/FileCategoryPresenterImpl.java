@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 
+import com.google.common.collect.ImmutableList;
 import com.noveogroup.android.log.Logger;
 import com.noveogroup.android.log.LoggerManager;
 
@@ -16,8 +17,9 @@ import app.guitartext.R;
 import app.guitartext.model.fileInfo.FileInfo;
 import app.guitartext.model.fileInfo.ParcelableFileInfoWrapper;
 import app.guitartext.model.user.UserFileService;
-import app.guitartext.presenter.category.ExpendableListEntry;
+import app.guitartext.presenter.category.FileCategoryEntry;
 import app.guitartext.presenter.category.FileCategoryPresenter;
+import app.guitartext.presenter.category.SubFileCategoryEntry;
 import app.guitartext.ui.browser.FileBrowserActivity;
 import app.guitartext.ui.text.TextActivity;
 
@@ -31,45 +33,18 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 	private static final Logger logger = LoggerManager.getLogger();
 
 	private final UserFileService userFileService;
+	private final FileCategoryPresenter.View view;
 	private final Activity activity;
 
 	private List<FileCategoryEntry> fileCategoryEntryList;
 
 	@Inject
-	public FileCategoryPresenterImpl(Activity activity, UserFileService userFileService)
+	public FileCategoryPresenterImpl(Activity activity, UserFileService userFileService, FileCategoryPresenter.View view)
 	{
 		this.activity = activity;
 		this.userFileService = userFileService;
+		this.view = view;
 		fileCategoryEntryList = new ArrayList<>();
-
-		addBaseCategory();
-		addFavouritesCategory();
-		addRecentCategory();
-	}
-
-	@Override
-	public ExpendableListEntry getCategoryEntry(int categoryPosition)
-	{
-		return getFileCategory(categoryPosition);
-	}
-
-	@Override
-	public ExpendableListEntry getSubCategoryEntry(int categoryPosition, int subCategoryPosition)
-	{
-		return getSubFileCategory(categoryPosition, subCategoryPosition);
-	}
-
-	@Override
-	public int getCategoryCount()
-	{
-		return fileCategoryEntryList.size();
-	}
-
-	@Override
-	public int getSubCategoryCount(int categoryPosition)
-	{
-		if(categoryPosition < 0 || categoryPosition >= fileCategoryEntryList.size()) return 0;
-		return fileCategoryEntryList.get(categoryPosition).getSubFileCategoryEntryList().size();
 	}
 
 	@Override
@@ -100,40 +75,57 @@ public class FileCategoryPresenterImpl implements FileCategoryPresenter
 		activity.startActivity(intent);
 	}
 
-	private void addBaseCategory()
+	@Override
+	public void updateCategory()
 	{
-		FileCategoryEntry baseCategory = new FileCategoryEntry(activity.getResources().getString(R.string.category_base), R.drawable.abs_base);
-		addSubEntryToCategory(baseCategory, userFileService.getBaseFiles());
-
-		fileCategoryEntryList.add(baseCategory);
+		createCategories();
+		view.onCategoriesUpdated(fileCategoryEntryList);
 	}
 
-	private void addFavouritesCategory()
+	private void createCategories()
 	{
-		FileCategoryEntry favouritesCategory = new FileCategoryEntry(activity.getResources().getString(R.string.category_favourite), R.drawable.abs_favourite);
-		addSubEntryToCategory(favouritesCategory, userFileService.getFavouriteFiles());
+		List<FileCategoryEntry> categoryEntries = new ArrayList<>(3);
+		categoryEntries.add(createBaseCategory());
+		categoryEntries.add(createFavouritesCategory());
+		categoryEntries.add(createRecentCategory());
 
-		fileCategoryEntryList.add(favouritesCategory);
+		fileCategoryEntryList = ImmutableList.copyOf(categoryEntries);
 	}
 
-	private void addRecentCategory()
+	private FileCategoryEntry createBaseCategory()
 	{
-		FileCategoryEntry recentCategory = new FileCategoryEntry(activity.getResources().getString(R.string.category_recent), R.drawable.abs_recent);
-		addSubEntryToCategory(recentCategory, userFileService.getRecentOpenedFiles());
+		List<SubFileCategoryEntry> sub = immutableSubEntryList(userFileService.getBaseFiles());
 
-		fileCategoryEntryList.add(recentCategory);
+		return new FileCategoryEntry(activity.getResources().getString(R.string.category_base), R.drawable.abs_base, sub);
 	}
 
-	private void addSubEntryToCategory(FileCategoryEntry fileCategoryEntry, List<FileInfo> fileInfoList)
+	private FileCategoryEntry createFavouritesCategory()
 	{
+		List<SubFileCategoryEntry> sub = immutableSubEntryList(userFileService.getFavouriteFiles());
+
+		return new FileCategoryEntry(activity.getResources().getString(R.string.category_favourite), R.drawable.abs_favourite, sub);
+	}
+
+	private FileCategoryEntry createRecentCategory()
+	{
+		List<SubFileCategoryEntry> sub = immutableSubEntryList(userFileService.getRecentOpenedFiles());
+
+		return new FileCategoryEntry(activity.getResources().getString(R.string.category_recent), R.drawable.abs_recent, sub);
+	}
+
+	private List<SubFileCategoryEntry> immutableSubEntryList(List<FileInfo> fileInfoList)
+	{
+		List<SubFileCategoryEntry> subFileCategoryEntries = new ArrayList<>(fileInfoList.size());
 		for(FileInfo fileInfo : fileInfoList)
 		{
-			fileCategoryEntry.addFileEntry(
+			subFileCategoryEntries.add(
 					new SubFileCategoryEntry(
 							fileInfo,
 							fileInfo.isDirectory() ? R.drawable.abs_folder : R.drawable.abs_file)
 			);
 		}
+
+		return ImmutableList.copyOf(subFileCategoryEntries);
 	}
 
 	@Nullable

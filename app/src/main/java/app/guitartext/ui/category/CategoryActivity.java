@@ -9,20 +9,21 @@ import android.widget.ExpandableListView;
 import com.noveogroup.android.log.Logger;
 import com.noveogroup.android.log.LoggerManager;
 
+import java.util.List;
+
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import app.guitartext.GuitarTextApplication;
 import app.guitartext.R;
 import app.guitartext.dagger.activity.CategoryComponent;
 import app.guitartext.dagger.activity.CategoryComponent2;
 import app.guitartext.dagger.activity.CategoryModule;
-import app.guitartext.db.schema.tables.User;
+import app.guitartext.presenter.category.FileCategoryEntry;
 import app.guitartext.presenter.category.FileCategoryPresenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CategoryActivity extends AppCompatActivity implements ExpandableListView.OnGroupClickListener, ExpandableListView.OnChildClickListener
+public class CategoryActivity extends AppCompatActivity implements ExpandableListView.OnGroupClickListener, ExpandableListView.OnChildClickListener, FileCategoryPresenter.View
 {
 	private Logger logger = LoggerManager.getLogger();
 
@@ -54,11 +55,19 @@ public class CategoryActivity extends AppCompatActivity implements ExpandableLis
 		expandableListView.setOnChildClickListener(this);
 	}
 
+
+	@Override
+	protected void onResume()
+	{
+		super.onResume();
+		fileCategoryPresenter.updateCategory();
+	}
+
 	private void createComponent()
 	{
 		categoryComponent = GuitarTextApplication.get(this)
 				.getUserComponent()
-				.plus(new CategoryModule(this));
+				.plus(new CategoryModule(this, this));
 
 		CategoryComponent2 categoryComponent2;
 	}
@@ -75,5 +84,11 @@ public class CategoryActivity extends AppCompatActivity implements ExpandableLis
 	{
 		fileCategoryPresenter.subCategorySelected(groupPosition, childPosition);
 		return false;
+	}
+
+	@Override
+	public void onCategoriesUpdated(List<FileCategoryEntry> categoryEntryList)
+	{
+		categoryExpendableListAdapter.setData(categoryEntryList);
 	}
 }
