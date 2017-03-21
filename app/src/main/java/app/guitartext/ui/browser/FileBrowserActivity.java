@@ -1,5 +1,6 @@
 package app.guitartext.ui.browser;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.AlertDialog;
@@ -113,7 +114,8 @@ public class FileBrowserActivity extends AppCompatActivity implements FileBrowse
 		AlertDialog.Builder dialogAlert = new AlertDialog.Builder(this);
 		dialogAlert.setTitle(R.string.add_to_base);
 
-		dialogAlert.setPositiveButton(R.string.ok, (dialog, which) -> fileBrowserPresenter.addBaseFile(position));
+		dialogAlert.setPositiveButton(R.string.yes, (dialog, which) -> fileBrowserPresenter.addBaseFile(position))
+		.setNegativeButton(R.string.no, (dialog, which) -> dialog.dismiss());
 		addToBaseFileDialog = dialogAlert.show();
 		return false;
 	}
