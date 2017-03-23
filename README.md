@@ -1,3 +1,16 @@
+# GuitarText
+GuitarText is simple Android app which shows lyrics of songs with highlighted guitar chords.
+GuitarText also allows transposing the chords.
+Application is in a design phase, so if you have any idea how it may work, fill free to create new issue.
+
+![GuitarText screenshots](img/img.png)
+
+Used technologies and concepts:
+ - MVP pattern 
+ - Dagger 2
+ - Butter Knife
+ - OrmLite
+ - Guava
 
 ## TODO
 
