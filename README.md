@@ -6,6 +6,7 @@ Application is in a design phase, so if you have any idea how it may work, fill 
 ![GuitarText screenshots](img/img.png)
 
 Used technologies and concepts:
+
  - MVP pattern 
  - Dagger 2
  - Butter Knife
@@ -28,5 +29,5 @@ Used technologies and concepts:
  12. Add options to show hidden files.
  13. Lyrics on fullscreen.
  14. Allow to remove files from category.
- 15. Project description and screenshots.
+ 15. ~~Project description and screenshots.~~
  16. ~~Add app icon.~~
