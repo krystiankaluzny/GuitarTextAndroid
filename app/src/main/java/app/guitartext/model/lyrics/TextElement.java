@@ -1,20 +1,19 @@
 package app.guitartext.model.lyrics;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 /**
  * Created by obywatel on 10.03.2017.
  * Modified by
  */
 
+@RequiredArgsConstructor
+@Getter
 public class TextElement
 {
+	private final String text;
 	private final TextElementType textElementType;
-	private String text;
-
-	public TextElement(String text, TextElementType textElementType)
-	{
-		this.text = text;
-		this.textElementType = textElementType;
-	}
 
 
 	public static TextElement asChord(String chord)
@@ -30,15 +29,5 @@ public class TextElement
 	public static TextElement asBracket(String bracket)
 	{
 		return new TextElement(bracket, TextElementType.BRACKET);
-	}
-
-	public TextElementType getTextElementType()
-	{
-		return textElementType;
-	}
-
-	public String getText()
-	{
-		return text;
 	}
 }
