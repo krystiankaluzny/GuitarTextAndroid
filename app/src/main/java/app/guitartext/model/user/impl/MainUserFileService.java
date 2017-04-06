@@ -129,7 +129,32 @@ public class MainUserFileService implements UserFileService
 
 	private void getFavouriteFileList()
 	{
-		favouriteList = new ArrayList<>();
+		try
+		{
+			List<OpenedFile> favOpened = openedFileDao.queryBuilder()
+					.orderBy(OpenedFile.OPEN_COUNT, false)
+					.limit((long) currentUser.getPreferences().getMaxFavouriteCount())
+					.query();
+
+			favouriteList = new ArrayList<>(favOpened.size());
+
+			for(OpenedFile fav : favOpened)
+			{
+//				FileInfo i = new FileInfo(
+//						fav.getId(),
+//						fav.isDirectory(),
+//						fav.getPath(),
+//						getNameForPath(fav.getPath()));
+//
+//				favouriteList.add(i);
+			}
+
+		} catch(SQLException e)
+		{
+			e.printStackTrace();
+			favouriteList = new ArrayList<>();
+		}
+
 	}
 
 	private void getRecentOpenedFileList()

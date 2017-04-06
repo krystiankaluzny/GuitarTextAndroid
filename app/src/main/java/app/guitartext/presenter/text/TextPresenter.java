@@ -17,5 +17,7 @@ public interface TextPresenter
 	interface View
 	{
 		void onLyricsUpdated(Lyrics lyrics);
+
+		void onCannotRead(String fileName);
 	}
 }

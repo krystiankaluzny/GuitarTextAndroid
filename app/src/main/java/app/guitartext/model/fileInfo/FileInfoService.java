@@ -1,5 +1,7 @@
 package app.guitartext.model.fileInfo;
 
+import com.annimon.stream.Optional;
+
 import java.util.List;
 
 /**
@@ -24,7 +26,9 @@ public interface FileInfoService
 
 	List<FileInfo> getFileWithAncestors(FileInfo fileInfo);
 
-	String readFile(FileInfo fileInfo);
+	Optional<String> readFile(FileInfo fileInfo);
 
-	List<String> readFileLines(FileInfo fileInfo);
+	Optional<List<String>> readFileLines(FileInfo fileInfo);
+
+	Optional<FileInfo> createFileFromPath(String path);
 }

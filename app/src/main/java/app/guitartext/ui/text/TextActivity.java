@@ -11,6 +11,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -96,6 +97,12 @@ public class TextActivity extends AppCompatActivity implements TextPresenter.Vie
 		}
 
 		textView.setText(stringBuilder, TextView.BufferType.SPANNABLE);
+	}
+
+	@Override
+	public void onCannotRead(String fileName)
+	{
+		Toast.makeText(this, getResources().getString(R.string.problem_with) + " " + fileName, Toast.LENGTH_LONG).show();
 	}
 
 	@Override

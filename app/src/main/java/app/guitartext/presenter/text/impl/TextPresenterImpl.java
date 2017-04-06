@@ -1,5 +1,7 @@
 package app.guitartext.presenter.text.impl;
 
+import com.annimon.stream.Optional;
+
 import javax.inject.Inject;
 
 import app.guitartext.model.fileInfo.FileInfo;
@@ -16,7 +18,7 @@ public class TextPresenterImpl implements TextPresenter
 {
 	private final View view;
 	private final LyricsService lyricsService;
-	private Lyrics lyrics;
+	private Optional<Lyrics> lyrics;
 
 	@Inject
 	public TextPresenterImpl(View view, LyricsService lyricsService)
@@ -29,14 +31,16 @@ public class TextPresenterImpl implements TextPresenter
 	public void prepareFile(FileInfo fileInfo)
 	{
 		lyrics = lyricsService.readLyrics(fileInfo);
-		view.onLyricsUpdated(lyrics);
+		lyrics.ifPresentOrElse(view::onLyricsUpdated, () -> view.onCannotRead(fileInfo.getName()));
 	}
 
 	@Override
 	public void onChordShiftGesture(float dX)
 	{
 		int shift = dX > 0 ? 1 : -1;
-		lyrics = lyricsService.shiftChordsBy(lyrics, shift);
-		view.onLyricsUpdated(lyrics);
+		lyrics.ifPresent(l -> {
+			lyrics = Optional.of(lyricsService.shiftChordsBy(l, shift));
+			view.onLyricsUpdated(lyrics.get());
+		});
 	}
 }

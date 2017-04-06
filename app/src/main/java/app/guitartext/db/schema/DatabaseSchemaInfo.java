@@ -18,7 +18,7 @@ import app.guitartext.db.schema.tables.User;
 public class DatabaseSchemaInfo
 {
 	private static final String DATABASE_NAME = "guitar_text.db";
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 
 	private List<Class<?>> tables;
 

@@ -2,6 +2,7 @@ package app.guitartext.model.fileInfo;
 
 import android.text.TextUtils;
 
+import com.annimon.stream.Optional;
 import com.google.common.io.Files;
 import com.noveogroup.android.log.Logger;
 import com.noveogroup.android.log.LoggerManager;
@@ -104,31 +105,44 @@ public class FileSystemFileInfoService implements FileInfoService
 	}
 
 	@Override
-	public String readFile(FileInfo fileInfo)
+	public Optional<String> readFile(FileInfo fileInfo)
 	{
-		String string = "";
 		try
 		{
-			string = Files.toString(new File(fileInfo.getPath()), Charset.forName("UTF-8"));
+			return Optional.ofNullable(
+					Files.toString(
+							new File(fileInfo.getPath()),
+							Charset.forName("UTF-8")));
 		} catch(IOException e)
 		{
 			logger.e(e);
 		}
-		return string;
+		return Optional.empty();
 	}
 
 	@Override
-	public List<String> readFileLines(FileInfo fileInfo)
+	public Optional<List<String>> readFileLines(FileInfo fileInfo)
 	{
-		List<String> lines = Collections.emptyList();
 		try
 		{
-			lines = Files.readLines(new File(fileInfo.getPath()), Charset.forName("UTF-8"));
+			return Optional.ofNullable(
+					Files.readLines(
+							new File(fileInfo.getPath()),
+							Charset.forName("UTF-8")));
 		} catch(IOException e)
 		{
 			logger.e(e);
 		}
-		return lines;
+		return Optional.empty();
+	}
+
+	@Override
+	public Optional<FileInfo> createFileFromPath(String path)
+	{
+		File file = new File(path);
+		if(file.exists())
+			return Optional.of(createFileInfo(0, file));
+		return Optional.empty();
 	}
 
 	private FileInfo createFileInfo(int position, File file)

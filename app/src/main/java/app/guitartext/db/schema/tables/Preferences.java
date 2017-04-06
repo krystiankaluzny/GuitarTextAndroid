@@ -1,26 +1,25 @@
 package app.guitartext.db.schema.tables;
 
-import com.j256.ormlite.field.DatabaseField;
-import com.j256.ormlite.table.DatabaseTable;
-
 import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.RequiredArgsConstructor;
 
 /**
  * Created by obywatel on 06.04.2017.
  * Modified by
  */
 
-@NoArgsConstructor
-@Data
-@DatabaseTable
-public class Preferences extends BaseTable
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+public class Preferences
 {
-	@DatabaseField(foreign = true, columnName = User.FOREIGN_ID)
-	@Getter(AccessLevel.NONE)
-	@Setter(AccessLevel.NONE)
-	private User user;
+	private final User user;
+
+	public int getMaxFavouriteCount()
+	{
+		return user.maxFavouriteCount;
+	}
+
+	public int getMaxRecentCount()
+	{
+		return user.maxRecentCount;
+	}
 }

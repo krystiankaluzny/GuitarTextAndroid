@@ -1,5 +1,6 @@
 package app.guitartext.model.lyrics;
 
+import com.annimon.stream.Optional;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
@@ -27,11 +28,11 @@ public class LyricsService
 		this.fileInfoService = fileInfoService;
 	}
 
-	public Lyrics readLyrics(FileInfo fileInfo)
+	public Optional<Lyrics> readLyrics(FileInfo fileInfo)
 	{
-		List<String> lines = fileInfoService.readFileLines(fileInfo);
-		List<LyricLine> lyricLines = Lists.transform(lines, this::createLine);
-		return new Lyrics(lyricLines, 0);
+		return fileInfoService.readFileLines(fileInfo)
+				.map(l -> Lists.transform(l, this::createLine))
+				.map(l -> new Lyrics(l, 0));
 	}
 
 	public LyricLine createLine(String line)
