@@ -12,7 +12,8 @@ Used technologies and concepts:
  - Butter Knife
  - OrmLite
  - Guava
-
+ - Lombok
+ 
 ## TODO
 
  1. ~~Allow to add file or dir to _Base_ category by long click.~~

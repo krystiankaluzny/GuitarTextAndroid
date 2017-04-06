@@ -1,14 +1,19 @@
 package app.guitartext.db.schema.tables;
 
-import com.google.common.base.Strings;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Created by obywatel on 17.03.2017.
  * Modified by
  */
-
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 @DatabaseTable
 public class User extends BaseTable
 {
@@ -16,23 +21,4 @@ public class User extends BaseTable
 
 	@DatabaseField
 	private String name;
-
-	public User()
-	{
-	}
-
-	public User(String name)
-	{
-		this.name = name;
-	}
-
-	public String getName()
-	{
-		return name;
-	}
-
-	public void setName(String name)
-	{
-		this.name = name;
-	}
 }
