@@ -18,7 +18,7 @@ Used technologies and concepts:
 
  1. ~~Allow to add file or dir to _Base_ category by long click.~~
  2. ~~Auto management of _Favourite_ (add, sort).~~
- 3. Management of last _Recent_.
+ 3. ~~Management of last _Recent_.~~
  4. ~~Sort files and directories.~~
  5. ~~Use appropriate icons on category screen.~~
  6. Go previous visited directory by clicking back button.

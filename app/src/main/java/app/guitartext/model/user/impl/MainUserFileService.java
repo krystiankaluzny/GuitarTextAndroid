@@ -6,9 +6,9 @@ import com.j256.ormlite.dao.Dao;
 import com.noveogroup.android.log.Logger;
 import com.noveogroup.android.log.LoggerManager;
 
-import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -182,30 +182,40 @@ public class MainUserFileService implements UserFileService
 
 	private void loadFavouriteFileList()
 	{
-		try
-		{
-			List<OpenedFile> favOpened = openedFileDao.queryBuilder()
-					.orderBy(OpenedFile.OPEN_COUNT, false)
-					.limit((long) currentUser.getPreferences().getMaxFavouriteCount())
-					.query();
-
-			favouriteList = new ArrayList<>(favOpened.size());
-
-			for(OpenedFile fav : favOpened)
-			{
-				fileInfoService.createFileFromPath(fav.getPath())
-						.ifPresent(fileInfo -> favouriteList.add(fileInfo));
-			}
-
-		} catch(SQLException e)
-		{
-			e.printStackTrace();
-			favouriteList = new ArrayList<>();
-		}
+		favouriteList = loadFromOpenedFileDao(OpenedFile.OPEN_COUNT,
+				currentUser.getPreferences().getMaxFavouriteCount());
 	}
 
 	private void loadRecentOpenedFileList()
 	{
-		recentList = new ArrayList<>();
+		recentList = loadFromOpenedFileDao(OpenedFile.LAST_OPEN_TIMESTAMP,
+				currentUser.getPreferences().getMaxRecentCount());
+	}
+
+	private List<FileInfo> loadFromOpenedFileDao(String orderBy, int limit)
+	{
+		try
+		{
+			List<OpenedFile> recentOpened = openedFileDao.queryBuilder()
+					.orderBy(orderBy, false)
+					.limit((long) limit)
+					.query();
+
+			List<FileInfo> result = new ArrayList<>(recentOpened.size());
+
+			for(OpenedFile fav : recentOpened)
+			{
+				fileInfoService.createFileFromPath(fav.getPath())
+						.ifPresent(result::add);
+			}
+
+			return result;
+
+		} catch(SQLException e)
+		{
+			logger.e(e);
+		}
+
+		return Collections.emptyList();
 	}
 }
