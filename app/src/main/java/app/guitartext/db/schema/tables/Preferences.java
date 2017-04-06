@@ -22,4 +22,9 @@ public class Preferences
 	{
 		return user.maxRecentCount;
 	}
+
+	public String getDefaultCharset()
+	{
+		return user.defaultCharset;
+	}
 }

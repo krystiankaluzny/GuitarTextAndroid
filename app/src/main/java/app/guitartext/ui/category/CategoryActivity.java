@@ -16,7 +16,6 @@ import javax.inject.Inject;
 import app.guitartext.GuitarTextApplication;
 import app.guitartext.R;
 import app.guitartext.dagger.activity.CategoryComponent;
-import app.guitartext.dagger.activity.CategoryComponent2;
 import app.guitartext.dagger.activity.CategoryModule;
 import app.guitartext.presenter.category.FileCategoryEntry;
 import app.guitartext.presenter.category.FileCategoryPresenter;
@@ -68,8 +67,6 @@ public class CategoryActivity extends AppCompatActivity implements ExpandableLis
 		categoryComponent = GuitarTextApplication.get(this)
 				.getUserComponent()
 				.plus(new CategoryModule(this, this));
-
-		CategoryComponent2 categoryComponent2;
 	}
 
 	@Override

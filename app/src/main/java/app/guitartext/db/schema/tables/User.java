@@ -3,6 +3,8 @@ package app.guitartext.db.schema.tables;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.nio.charset.Charset;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,9 +33,12 @@ public class User extends BaseTable
 	@Getter
 	private Preferences preferences = new Preferences(this);
 
-	@DatabaseField(defaultValue = "10")
-	int maxFavouriteCount;
+	@DatabaseField
+	int maxFavouriteCount = 10;
 
-	@DatabaseField(defaultValue = "10")
-	int maxRecentCount;
+	@DatabaseField
+	int maxRecentCount = 10;
+
+	@DatabaseField(defaultValue = "UTF-8")
+	String defaultCharset;
 }

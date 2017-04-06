@@ -41,4 +41,10 @@ public class RootUserFileService implements UserFileService
 	{
 
 	}
+
+	@Override
+	public void fileOpened(FileInfo fileInfo)
+	{
+
+	}
 }

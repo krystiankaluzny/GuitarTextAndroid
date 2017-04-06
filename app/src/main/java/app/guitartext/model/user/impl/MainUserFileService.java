@@ -6,6 +6,7 @@ import com.j256.ormlite.dao.Dao;
 import com.noveogroup.android.log.Logger;
 import com.noveogroup.android.log.LoggerManager;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import app.guitartext.db.schema.tables.BaseFile;
 import app.guitartext.db.schema.tables.OpenedFile;
 import app.guitartext.db.schema.tables.User;
 import app.guitartext.model.fileInfo.FileInfo;
+import app.guitartext.model.fileInfo.FileInfoService;
 import app.guitartext.model.user.UserFileService;
 
 /**
@@ -27,29 +29,29 @@ public class MainUserFileService implements UserFileService
 {
 	private static final Logger logger = LoggerManager.getLogger();
 
-	public static final char SEPARATOR = '/';
-
-	private User currentUser;
-	private Dao<BaseFile, Integer> baseFileDao;
-	private Dao<OpenedFile, Integer> openedFileDao;
+	private final User currentUser;
+	private final Dao<BaseFile, Integer> baseFileDao;
+	private final Dao<OpenedFile, Integer> openedFileDao;
+	private final FileInfoService fileInfoService;
 
 	private List<FileInfo> baseList = null;
 	private List<FileInfo> favouriteList = null;
 	private List<FileInfo> recentList = null;
 
 	@Inject
-	public MainUserFileService(User currentUser, Dao<BaseFile, Integer> baseFileDao, Dao<OpenedFile, Integer> openedFileDao)
+	public MainUserFileService(User currentUser, Dao<BaseFile, Integer> baseFileDao, Dao<OpenedFile, Integer> openedFileDao, FileInfoService fileInfoService)
 	{
 		this.currentUser = currentUser;
 		this.baseFileDao = baseFileDao;
 		this.openedFileDao = openedFileDao;
+		this.fileInfoService = fileInfoService;
 	}
 
 	@NonNull
 	@Override
 	public List<FileInfo> getBaseFiles()
 	{
-		if(baseList == null) getBaseFileList();
+		if(baseList == null) loadBaseFileList();
 		return baseList;
 	}
 
@@ -57,7 +59,7 @@ public class MainUserFileService implements UserFileService
 	@Override
 	public List<FileInfo> getFavouriteFiles()
 	{
-		if(favouriteList == null) getFavouriteFileList();
+		if(favouriteList == null) loadFavouriteFileList();
 		return favouriteList;
 	}
 
@@ -65,7 +67,7 @@ public class MainUserFileService implements UserFileService
 	@Override
 	public List<FileInfo> getRecentOpenedFiles()
 	{
-		if(recentList == null) getRecentOpenedFileList();
+		if(recentList == null) loadRecentOpenedFileList();
 		return recentList;
 	}
 
@@ -89,7 +91,63 @@ public class MainUserFileService implements UserFileService
 		}
 	}
 
-	private void getBaseFileList()
+	@Override
+	public void fileOpened(FileInfo fileInfo)
+	{
+		List<OpenedFile> openedFiles = new ArrayList<>();
+		try
+		{
+			openedFiles = openedFileDao.queryForEq(OpenedFile.PATH, fileInfo.getPath());
+		} catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+
+		if(openedFiles.isEmpty())
+		{
+			createOpenedFile(fileInfo);
+		}
+		else
+		{
+			updateOpenedFile(openedFiles.get(0));
+		}
+
+		loadFavouriteFileList();
+		loadRecentOpenedFileList();
+	}
+
+	private void createOpenedFile(FileInfo fileInfo)
+	{
+		OpenedFile openedFile = new OpenedFile(currentUser,
+				fileInfo.getPath(),
+				currentUser.getPreferences().getDefaultCharset(),
+				1,
+				(int) (System.currentTimeMillis() / 1000));
+
+		try
+		{
+			openedFileDao.create(openedFile);
+		} catch(SQLException e)
+		{
+			logger.e(e);
+		}
+	}
+
+	private void updateOpenedFile(OpenedFile openedFile)
+	{
+		openedFile.setOpenCount(openedFile.getOpenCount() + 1);
+		openedFile.setLastOpenTimestamp((int) (System.currentTimeMillis() / 1000));
+
+		try
+		{
+			openedFileDao.update(openedFile);
+		} catch(SQLException e)
+		{
+			logger.e(e);
+		}
+	}
+
+	private void loadBaseFileList()
 	{
 		List<BaseFile> baseFiles = new ArrayList<>();
 		try
@@ -104,13 +162,8 @@ public class MainUserFileService implements UserFileService
 
 		for(BaseFile baseFile : baseFiles)
 		{
-			FileInfo i = new FileInfo(
-					baseFile.getId(),
-					baseFile.isDirectory(),
-					baseFile.getPath(),
-					getNameForPath(baseFile.getPath()));
-
-			baseList.add(i);
+			fileInfoService.createFileFromPath(baseFile.getPath())
+					.ifPresent(fileInfo -> baseList.add(fileInfo));
 		}
 
 		if(baseList.isEmpty())
@@ -127,7 +180,7 @@ public class MainUserFileService implements UserFileService
 		}
 	}
 
-	private void getFavouriteFileList()
+	private void loadFavouriteFileList()
 	{
 		try
 		{
@@ -140,13 +193,8 @@ public class MainUserFileService implements UserFileService
 
 			for(OpenedFile fav : favOpened)
 			{
-//				FileInfo i = new FileInfo(
-//						fav.getId(),
-//						fav.isDirectory(),
-//						fav.getPath(),
-//						getNameForPath(fav.getPath()));
-//
-//				favouriteList.add(i);
+				fileInfoService.createFileFromPath(fav.getPath())
+						.ifPresent(fileInfo -> favouriteList.add(fileInfo));
 			}
 
 		} catch(SQLException e)
@@ -154,19 +202,10 @@ public class MainUserFileService implements UserFileService
 			e.printStackTrace();
 			favouriteList = new ArrayList<>();
 		}
-
 	}
 
-	private void getRecentOpenedFileList()
+	private void loadRecentOpenedFileList()
 	{
 		recentList = new ArrayList<>();
-	}
-
-	private String getNameForPath(String path)
-	{
-		int index = path.lastIndexOf(SEPARATOR);
-		if(index < 0) return path;
-		if(path.length() == 1) return path;
-		return path.substring(index + 1);
 	}
 }

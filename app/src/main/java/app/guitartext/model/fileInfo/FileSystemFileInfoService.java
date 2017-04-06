@@ -28,6 +28,7 @@ public class FileSystemFileInfoService implements FileInfoService
 
 	private static final FileInfo ROOT_LOCATION = new FileInfo(0, true, "/", "/");
 	private static final String HIDDEN_FILE_PREFIX = ".";
+	private static final char SEPARATOR = '/';
 
 	@Inject
 	public FileSystemFileInfoService()
@@ -100,7 +101,6 @@ public class FileSystemFileInfoService implements FileInfoService
 			info = createFileInfo(0, file);
 		}
 
-		pathItemList.addFirst(ROOT_LOCATION);
 		return pathItemList;
 	}
 
@@ -148,6 +148,14 @@ public class FileSystemFileInfoService implements FileInfoService
 	private FileInfo createFileInfo(int position, File file)
 	{
 		if(file == null) return new FileInfo(position, false, "", "");
-		return new FileInfo(position, file.isDirectory(), file.getAbsolutePath(), file.getName());
+		return new FileInfo(position, file.isDirectory(), file.getAbsolutePath(), getNameForPath(file.getAbsolutePath()));
+	}
+
+	private String getNameForPath(String path)
+	{
+		int index = path.lastIndexOf(SEPARATOR);
+		if(index < 0) return path;
+		if(path.length() == 1) return path;
+		return path.substring(index + 1);
 	}
 }

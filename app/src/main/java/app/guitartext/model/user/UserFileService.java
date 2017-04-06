@@ -24,4 +24,6 @@ public interface UserFileService
 	List<FileInfo> getRecentOpenedFiles();
 
 	void addBase(FileInfo fileInfo);
+
+	void fileOpened(FileInfo fileInfo);
 }

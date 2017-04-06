@@ -4,6 +4,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,10 +18,12 @@ import lombok.Setter;
  */
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 @DatabaseTable
 public class OpenedFile extends BaseTable
 {
+	public static final String PATH = "path";
 	public static final String OPEN_COUNT = "openCount";
 	public static final String LAST_OPEN_TIMESTAMP = "lastOpenTimestamp";
 

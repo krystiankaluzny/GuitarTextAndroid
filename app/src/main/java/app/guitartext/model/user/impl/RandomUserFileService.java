@@ -52,6 +52,12 @@ public class RandomUserFileService implements UserFileService
 
 	}
 
+	@Override
+	public void fileOpened(FileInfo fileInfo)
+	{
+
+	}
+
 	private void fillRandom(List<FileInfo> list, int size)
 	{
 		for(int i = 0; i < size; i++)
